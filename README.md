@@ -1,3 +1,13 @@
-#Checker Game
+# Checker Game
 
-Reference : https://youtu.be/6S6km5duBrM
+Final Project of Class A OOP Lectures - Team 4
+
+Reference : [Video](https://youtu.be/6S6km5duBrM)
+
+## Team Members
+
+| Name          | NRP        |
+| ------------- | ---------- |
+| Keyisa Raihan | 5025211002 |
+| Daud Dhiya'   | 5025211021 |
+| Alfa Fakhrur  | 5025211214 |
