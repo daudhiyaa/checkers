@@ -1,9 +1,12 @@
 package application;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -22,7 +25,7 @@ public class CheckersApp extends Application {
 
     private Parent createContent() {
         Pane root = new Pane();
-        root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        root.setPrefSize(WIDTH * TILE_SIZE + 100, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
 
         for (int y = 0; y < HEIGHT; y++) {
@@ -48,6 +51,21 @@ public class CheckersApp extends Application {
                 }
             }
         }
+        
+//        #Temporary HardCode
+        Button btnSwitch = new Button();
+        btnSwitch.setText("Switch");
+        
+        btnSwitch.setLayoutX(WIDTH * TILE_SIZE + 40);
+        btnSwitch.setLayoutY(HEIGHT * TILE_SIZE / 2);
+        
+        btnSwitch.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            	turn.changeTurn();
+            }
+        });
+        
+        root.getChildren().add(btnSwitch);
 
         return root;
     }
