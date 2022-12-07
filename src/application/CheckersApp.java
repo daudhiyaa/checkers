@@ -27,7 +27,7 @@ public class CheckersApp extends Application {
 
     private Parent createContent() {
         Pane root = new Pane();
-        root.setPrefSize(WIDTH * TILE_SIZE + 100, HEIGHT * TILE_SIZE);
+        root.setPrefSize(WIDTH * TILE_SIZE + 160, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
 
         for (int y = 0; y < HEIGHT; y++) {
@@ -54,50 +54,9 @@ public class CheckersApp extends Application {
             }
         }
         
-//        #Temporary HardCode
-        Button btnSwitch = new Button();
-        btnSwitch.setText("Switch");
-        
-        Label lblTurn = new Label("WHITE");
-        lblTurn.setLayoutX(WIDTH * TILE_SIZE + 30);
-        lblTurn.setLayoutY((HEIGHT * TILE_SIZE / 2) + 50);
-        
-        btnSwitch.setLayoutX(WIDTH * TILE_SIZE + 30);
-        btnSwitch.setLayoutY(HEIGHT * TILE_SIZE / 2);
-        
-        btnSwitch.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-            	turn.changeTurn();
-            	if (turn.getPlayerTurn()) {
-            		lblTurn.setText("WHITE");
-            	}
-            	else lblTurn.setText("RED");
-            }
-        });
-        
-        root.getChildren().add(lblTurn);
-        root.getChildren().add(btnSwitch);
-        
-        createGameLoop(lblTurn);
-
+        root.getChildren().add(turn.turnUI());
         return root;
     }
-    
-//    #Temporary function for update TURN
-    private void createGameLoop(Label change) {
-		AnimationTimer gameTimer = new AnimationTimer() {
-
-			@Override
-			public void handle(long now) {
-				if (turn.getPlayerTurn()) {
-            		change.setText("WHITE");
-            	}
-            	else change.setText("RED");
-			}
-			
-		};
-		gameTimer.start();
-	}
 
     private MoveResult tryMove(Piece piece, int newX, int newY) {
         if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
