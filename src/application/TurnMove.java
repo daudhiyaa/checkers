@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -29,12 +28,16 @@ public class TurnMove {
 	private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
 	private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('application/resources/green_buttonRe.png');";
 	
+	ImageView markerPlayer = new ImageView(TURNON_PATH);;
+	ImageView markerOpponent = new ImageView(TURNOFF_PATH);;
+	
 	public boolean getPlayerTurn() {
 		return playerTurn;
 	}
 	
 	public void changeTurn() {
 		playerTurn = !playerTurn;
+		changeMarker();
 	}
 	
 	public VBox turnUI() {
@@ -44,9 +47,9 @@ public class TurnMove {
 		box.setPrefHeight(CheckersApp.HEIGHT * CheckersApp.TILE_SIZE);
 		box.setPrefWidth(160);
 			
-		box.getChildren().add(markerOff());
+		box.getChildren().add(markerOpponent);
 		box.getChildren().add(createBtn());	
-		box.getChildren().add(markerOn());
+		box.getChildren().add(markerPlayer);
 		
 		box.setSpacing(20);
 		
@@ -60,14 +63,14 @@ public class TurnMove {
 		return box;
 	}
 	
-	private ImageView markerOff() {
-		ImageView markerOff = new ImageView(TURNOFF_PATH);
-		return markerOff;
-	}
-	
-	private ImageView markerOn() {
-		ImageView markerOn = new ImageView(TURNON_PATH);
-		return markerOn;
+	private void changeMarker() {
+		if(playerTurn) {
+			markerPlayer.setImage(new Image(TURNON_PATH)); 
+			markerOpponent.setImage(new Image(TURNOFF_PATH));
+		}else {
+			markerPlayer.setImage(new Image(TURNOFF_PATH)); 
+			markerOpponent.setImage(new Image(TURNON_PATH));
+		}
 	}
 	
 	private Button createBtn() {
