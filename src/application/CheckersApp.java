@@ -1,9 +1,14 @@
 package application;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -17,10 +22,12 @@ public class CheckersApp extends Application {
 
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
+    
+    private TurnMove turn = new TurnMove();
 
     private Parent createContent() {
         Pane root = new Pane();
-        root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        root.setPrefSize(WIDTH * TILE_SIZE + 100, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
 
         for (int y = 0; y < HEIGHT; y++) {
@@ -46,9 +53,51 @@ public class CheckersApp extends Application {
                 }
             }
         }
+        
+//        #Temporary HardCode
+        Button btnSwitch = new Button();
+        btnSwitch.setText("Switch");
+        
+        Label lblTurn = new Label("WHITE");
+        lblTurn.setLayoutX(WIDTH * TILE_SIZE + 30);
+        lblTurn.setLayoutY((HEIGHT * TILE_SIZE / 2) + 50);
+        
+        btnSwitch.setLayoutX(WIDTH * TILE_SIZE + 30);
+        btnSwitch.setLayoutY(HEIGHT * TILE_SIZE / 2);
+        
+        btnSwitch.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            	turn.changeTurn();
+            	if (turn.getPlayerTurn()) {
+            		lblTurn.setText("WHITE");
+            	}
+            	else lblTurn.setText("RED");
+            }
+        });
+        
+        root.getChildren().add(lblTurn);
+        root.getChildren().add(btnSwitch);
+        
+        createGameLoop(lblTurn);
 
         return root;
     }
+    
+//    #Temporary function for update TURN
+    private void createGameLoop(Label change) {
+		AnimationTimer gameTimer = new AnimationTimer() {
+
+			@Override
+			public void handle(long now) {
+				if (turn.getPlayerTurn()) {
+            		change.setText("WHITE");
+            	}
+            	else change.setText("RED");
+			}
+			
+		};
+		gameTimer.start();
+	}
 
     private MoveResult tryMove(Piece piece, int newX, int newY) {
         if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
@@ -84,6 +133,16 @@ public class CheckersApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    
+    private boolean checkTurn(PieceType type) {
+    	if(type == PieceType.RED && turn.getPlayerTurn() == true) {
+    		return true;
+    	}
+    	if(type == PieceType.WHITE && turn.getPlayerTurn() == false) {
+    		return true;
+    	}
+    	return false;
+    }
 
     private Piece makePiece(PieceType type, int x, int y) {
         Piece piece = new Piece(type, x, y);
@@ -93,8 +152,11 @@ public class CheckersApp extends Application {
             int newY = toBoard(piece.getLayoutY());
 
             MoveResult result;
-
-            if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
+            
+            if(checkTurn(type)) {
+            	result = new MoveResult(MoveType.NONE);
+            }
+            else if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
                 result = new MoveResult(MoveType.NONE);
             } else {
                 result = tryMove(piece, newX, newY);
@@ -111,6 +173,8 @@ public class CheckersApp extends Application {
                     piece.move(newX, newY);
                     board[x0][y0].setPiece(null);
                     board[newX][newY].setPiece(piece);
+                    
+                    turn.changeTurn();
                     break;
                 case KILL:
                     piece.move(newX, newY);
@@ -120,6 +184,7 @@ public class CheckersApp extends Application {
                     Piece otherPiece = result.getPiece();
                     board[toBoard(otherPiece.getOldX())][toBoard(otherPiece.getOldY())].setPiece(null);
                     pieceGroup.getChildren().remove(otherPiece);
+                    
                     break;
             }
         });
