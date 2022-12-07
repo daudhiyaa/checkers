@@ -109,10 +109,6 @@ public class TurnMove {
 		btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
             	changeTurn();
-            	if (playerTurn) {
-            		
-            	}
-            	else ;
             }
         });
 		
