@@ -7,13 +7,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class TurnMove {
 	
@@ -21,6 +25,9 @@ public class TurnMove {
 	
 	private final static String TURNOFF_PATH = "application/resources/turn_off.png";
 	private final static String TURNON_PATH = "application/resources/turn_on.png";
+	
+	private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
+	private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('application/resources/green_buttonRe.png');";
 	
 	public boolean getPlayerTurn() {
 		return playerTurn;
@@ -35,20 +42,15 @@ public class TurnMove {
 		
 		box.setTranslateX(CheckersApp.WIDTH * CheckersApp.TILE_SIZE);
 		box.setPrefHeight(CheckersApp.HEIGHT * CheckersApp.TILE_SIZE);
-		box.setPrefWidth(150);
-
-		ImageView markerOff = new ImageView(TURNOFF_PATH);
-		ImageView markerOn = new ImageView(TURNON_PATH);
+		box.setPrefWidth(160);
 			
-		box.getChildren().add(markerOff);
-			
-		box.getChildren().add(createBtn());
-			
-		box.getChildren().add(markerOn);
+		box.getChildren().add(markerOff());
+		box.getChildren().add(createBtn());	
+		box.getChildren().add(markerOn());
 		
 		box.setSpacing(20);
 		
-		BackgroundImage bgImg = new BackgroundImage(new Image("application/resources/black.png"),
+		BackgroundImage bgImg = new BackgroundImage(new Image("application/resources/blue.png"),
 				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
 		box.setBackground(new Background(bgImg));
 			
@@ -58,10 +60,49 @@ public class TurnMove {
 		return box;
 	}
 	
+	private ImageView markerOff() {
+		ImageView markerOff = new ImageView(TURNOFF_PATH);
+		return markerOff;
+	}
+	
+	private ImageView markerOn() {
+		ImageView markerOn = new ImageView(TURNON_PATH);
+		return markerOn;
+	}
+	
 	private Button createBtn() {
+		
 		Button btn = new Button();
         btn.setText("Switch");
+        btn.setStyle(BUTTON_FREE_STYLE);
+        btn.setPrefHeight(45);
+        btn.setPrefWidth(150);
+        
+        try {
+			btn.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 18));
+		}
+		catch (FileNotFoundException e) {
+			btn.setFont(Font.font("Verdana", 23));
+		}
+        
+		btn.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				btn.setEffect(new DropShadow());
+				
+			}
+		});
 		
+		btn.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				btn.setEffect(null);
+				
+			}
+		});
+        
 		btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
             	changeTurn();
