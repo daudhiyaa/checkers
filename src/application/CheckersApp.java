@@ -17,6 +17,8 @@ public class CheckersApp extends Application {
 
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
+    
+    private TurnMove turn = new TurnMove();
 
     private Parent createContent() {
         Pane root = new Pane();
@@ -84,6 +86,16 @@ public class CheckersApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    
+    private boolean checkTurn(PieceType type) {
+    	if(type == PieceType.RED && turn.getPlayerTurn() == true) {
+    		return true;
+    	}
+    	if(type == PieceType.WHITE && turn.getPlayerTurn() == false) {
+    		return true;
+    	}
+    	return false;
+    }
 
     private Piece makePiece(PieceType type, int x, int y) {
         Piece piece = new Piece(type, x, y);
@@ -93,8 +105,11 @@ public class CheckersApp extends Application {
             int newY = toBoard(piece.getLayoutY());
 
             MoveResult result;
-
-            if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
+            
+            if(checkTurn(type)) {
+            	result = new MoveResult(MoveType.NONE);
+            }
+            else if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
                 result = new MoveResult(MoveType.NONE);
             } else {
                 result = tryMove(piece, newX, newY);
@@ -111,6 +126,8 @@ public class CheckersApp extends Application {
                     piece.move(newX, newY);
                     board[x0][y0].setPiece(null);
                     board[newX][newY].setPiece(piece);
+                    
+                    turn.changeTurn();
                     break;
                 case KILL:
                     piece.move(newX, newY);
@@ -120,6 +137,8 @@ public class CheckersApp extends Application {
                     Piece otherPiece = result.getPiece();
                     board[toBoard(otherPiece.getOldX())][toBoard(otherPiece.getOldY())].setPiece(null);
                     pieceGroup.getChildren().remove(otherPiece);
+                    
+                    turn.changeTurn();
                     break;
             }
         });
