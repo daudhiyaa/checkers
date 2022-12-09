@@ -26,7 +26,7 @@ public class Piece extends StackPane {
     }
     
     public void changeToKing() {
-    	type.isKing = 1;
+    	type.isKing = true;
     	
     	Ellipse kingMark = new Ellipse(TILE_SIZE * 0.15, TILE_SIZE * 0.15);
         kingMark.setFill(Color.BLACK);
