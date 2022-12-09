@@ -1,11 +1,13 @@
 package application;
 
 public enum PieceType {
-    RED(1), WHITE(-1);
+    RED(1, 0), WHITE(-1, 0);
 
     final int moveDir;
+    int isKing;
 
-    PieceType(int moveDir) {
+    PieceType(int moveDir, int isKing) {
         this.moveDir = moveDir;
+        this.isKing = isKing;
     }
 }

@@ -35,6 +35,16 @@ public class TurnMove {
 		return playerTurn;
 	}
 	
+	public boolean checkTurn(PieceType type) {
+    	if(type == PieceType.RED && getPlayerTurn() == true) {
+    		return true;
+    	}
+    	if(type == PieceType.WHITE && getPlayerTurn() == false) {
+    		return true;
+    	}
+    	return false;
+    }
+	
 	public void changeTurn() {
 		playerTurn = !playerTurn;
 		changeMarker();

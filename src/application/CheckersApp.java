@@ -1,14 +1,9 @@
 package application;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -92,16 +87,7 @@ public class CheckersApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
-    private boolean checkTurn(PieceType type) {
-    	if(type == PieceType.RED && turn.getPlayerTurn() == true) {
-    		return true;
-    	}
-    	if(type == PieceType.WHITE && turn.getPlayerTurn() == false) {
-    		return true;
-    	}
-    	return false;
-    }
+  
 
     private Piece makePiece(PieceType type, int x, int y) {
         Piece piece = new Piece(type, x, y);
@@ -112,7 +98,7 @@ public class CheckersApp extends Application {
 
             MoveResult result;
             
-            if(checkTurn(type)) {
+            if(turn.checkTurn(type)) {
             	result = new MoveResult(MoveType.NONE);
             }
             else if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
@@ -145,6 +131,11 @@ public class CheckersApp extends Application {
                     pieceGroup.getChildren().remove(otherPiece);
                     
                     break;
+            }
+            
+            if(((newY == HEIGHT * TILE_SIZE && type == PieceType.RED) 
+            		|| (newY == 0 && type == PieceType.WHITE)) && (type.isKing == 0)) {
+            	piece.changeToKing();
             }
         });
 

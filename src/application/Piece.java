@@ -24,6 +24,19 @@ public class Piece extends StackPane {
     public double getOldY() {
         return oldY;
     }
+    
+    public void changeToKing() {
+    	type.isKing = 1;
+    	
+    	Ellipse kingMark = new Ellipse(TILE_SIZE * 0.15, TILE_SIZE * 0.15);
+        kingMark.setFill(Color.BLACK);
+
+        kingMark.setTranslateX((TILE_SIZE - TILE_SIZE * 0.3125 * 2) / 2);
+        kingMark.setTranslateY((TILE_SIZE - TILE_SIZE * 0.26 * 2) / 2);
+        
+    	this.getChildren().add(kingMark);
+    	
+    }
 
     public Piece(PieceType type, int x, int y) {
         this.type = type;
