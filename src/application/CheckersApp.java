@@ -146,11 +146,12 @@ public class CheckersApp extends Application {
                     
                     break;
             }
-            System.out.println(newY);
             
             if(((newY == HEIGHT-1 && type == PieceType.RED) 
             		|| (newY == 0 && type == PieceType.WHITE)) && (!type.isKing)) {
             	piece.changeToKing();
+            	
+            	turn.changeTurn();
             }
         });
 
