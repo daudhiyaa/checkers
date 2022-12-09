@@ -1,14 +1,9 @@
 package application;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -65,17 +60,31 @@ public class CheckersApp extends Application {
 
         int x0 = toBoard(piece.getOldX());
         int y0 = toBoard(piece.getOldY());
-
-        if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir) {
-            return new MoveResult(MoveType.NORMAL);
-        } else if (Math.abs(newX - x0) == 2 && newY - y0 == piece.getType().moveDir * 2) {
-
-            int x1 = x0 + (newX - x0) / 2;
-            int y1 = y0 + (newY - y0) / 2;
-
-            if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getType() != piece.getType()) {
-                return new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
-            }
+        
+        if(!piece.getType().isKing) {
+	        if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir) {
+	            return new MoveResult(MoveType.NORMAL);
+	        } else if (Math.abs(newX - x0) == 2 && newY - y0 == piece.getType().moveDir * 2) {
+	
+	            int x1 = x0 + (newX - x0) / 2;
+	            int y1 = y0 + (newY - y0) / 2;
+	
+	            if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getType() != piece.getType()) {
+	                return new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
+	            }
+	        }
+        }else {
+        	if (Math.abs(newX - x0) == 1) {
+	            return new MoveResult(MoveType.NORMAL);
+	        } else if (Math.abs(newX - x0) == 2) {
+	
+	            int x1 = x0 + (newX - x0) / 2;
+	            int y1 = y0 + (newY - y0) / 2;
+	
+	            if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getType() != piece.getType()) {
+	                return new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
+	            }
+	        }
         }
 
         return new MoveResult(MoveType.NONE);
@@ -92,16 +101,7 @@ public class CheckersApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
-    private boolean checkTurn(PieceType type) {
-    	if(type == PieceType.RED && turn.getPlayerTurn() == true) {
-    		return true;
-    	}
-    	if(type == PieceType.WHITE && turn.getPlayerTurn() == false) {
-    		return true;
-    	}
-    	return false;
-    }
+  
 
     private Piece makePiece(PieceType type, int x, int y) {
         Piece piece = new Piece(type, x, y);
@@ -112,7 +112,7 @@ public class CheckersApp extends Application {
 
             MoveResult result;
             
-            if(checkTurn(type)) {
+            if(turn.checkTurn(type)) {
             	result = new MoveResult(MoveType.NONE);
             }
             else if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
@@ -145,6 +145,13 @@ public class CheckersApp extends Application {
                     pieceGroup.getChildren().remove(otherPiece);
                     
                     break;
+            }
+            
+            if(((newY == HEIGHT-1 && type == PieceType.RED) 
+            		|| (newY == 0 && type == PieceType.WHITE)) && (!type.isKing)) {
+            	piece.changeToKing();
+            	
+            	turn.changeTurn();
             }
         });
 
