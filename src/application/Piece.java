@@ -9,6 +9,7 @@ import static application.CheckersApp.TILE_SIZE;
 public class Piece extends StackPane {
 
     private PieceType type;
+    private boolean isKing = false;
 
     private double mouseX, mouseY;
     private double oldX, oldY;
@@ -25,8 +26,12 @@ public class Piece extends StackPane {
         return oldY;
     }
     
+    public boolean getIsKing() {
+    	return isKing;
+    }
+    
     public void changeToKing() {
-    	type.isKing = true;
+    	this.isKing = true;
     	
     	Ellipse kingMark = new Ellipse(TILE_SIZE * 0.15, TILE_SIZE * 0.15);
         kingMark.setFill(Color.BLACK);

@@ -61,7 +61,7 @@ public class CheckersApp extends Application {
         int x0 = toBoard(piece.getOldX());
         int y0 = toBoard(piece.getOldY());
         
-        if(!piece.getType().isKing) {
+        if(!piece.getIsKing()) {
 	        if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir) {
 	            return new MoveResult(MoveType.NORMAL);
 	        } else if (Math.abs(newX - x0) == 2 && newY - y0 == piece.getType().moveDir * 2) {
@@ -148,11 +148,13 @@ public class CheckersApp extends Application {
             }
             
             if(((newY == HEIGHT-1 && type == PieceType.RED) 
-            		|| (newY == 0 && type == PieceType.WHITE)) && (!type.isKing)) {
+            		|| (newY == 0 && type == PieceType.WHITE)) && (!piece.getIsKing())) {
             	piece.changeToKing();
             	
             	turn.changeTurn();
             }
+            
+            System.out.println(piece.getIsKing());
         });
 
         return piece;
