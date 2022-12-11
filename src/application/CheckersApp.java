@@ -1,5 +1,4 @@
 package application;
-import javafx.fxml.FXMLLoader;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -7,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.util.ArrayList;
-import javafx.scene.SubScene;
 public class CheckersApp extends Application {
 
     public static final int TILE_SIZE = 75;
@@ -18,8 +16,7 @@ public class CheckersApp extends Application {
     private Tile[][] board = new Tile[WIDTH][HEIGHT];
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
-    private Parent resRoot;
-    private SubScene resScene;
+    private GameSubScene resScene;
     Scene scene;
     Pane root = new Pane();
     private TurnMove turn = new TurnMove();
@@ -99,8 +96,8 @@ public class CheckersApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         createContent(root);
     	scene = new Scene(root);
-        resRoot = FXMLLoader.load(getClass().getResource("EndPanel.fxml"));
-        resScene = new SubScene(resRoot,400,400);
+        resScene = new GameSubScene();
+        System.out.printf("%d %d\n",redPiece.size(), whitePiece.size());
         primaryStage.setTitle("CheckersApp");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -128,7 +125,7 @@ public class CheckersApp extends Application {
 
             int x0 = toBoard(piece.getOldX());
             int y0 = toBoard(piece.getOldY());
-            int GameResult = -1;
+            int GameResult = 0;
             switch (result.getType()) {
                 case NONE:
                     piece.abortMove();
@@ -159,13 +156,14 @@ public class CheckersApp extends Application {
             	
             	turn.changeTurn();
             }
-            if(GameResult!=-1) {
+            if(GameResult!=0) {
+            	System.out.println(GameResult);
             	if(GameResult==1) {
             		System.out.println("Red WIN");
-            		GameResPanel.setWinnerText("Red");
+            		resScene.setTxt("Red");
             	}else if(GameResult==2) {
             		System.out.println("White WIN");
-            		GameResPanel.setWinnerText("White");
+            		resScene.setTxt("White");
             	}
         		root.getChildren().add(resScene);
             }
