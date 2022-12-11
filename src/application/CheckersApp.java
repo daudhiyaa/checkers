@@ -1,5 +1,5 @@
 package application;
-
+import javafx.fxml.FXMLLoader;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.util.ArrayList;
-
+import javafx.scene.SubScene;
 public class CheckersApp extends Application {
 
     public static final int TILE_SIZE = 75;
@@ -18,14 +18,14 @@ public class CheckersApp extends Application {
     private Tile[][] board = new Tile[WIDTH][HEIGHT];
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
-    
+    private Parent resRoot;
+    private SubScene resScene;
+    Scene scene;
+    Pane root = new Pane();
     private TurnMove turn = new TurnMove();
-
-    private Parent createContent() {
-        Pane root = new Pane();
+    private void createContent(Pane croot) {
         root.setPrefSize(WIDTH * TILE_SIZE + 160, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
-
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
                 Tile tile = new Tile((x + y) % 2 == 0, x, y);
@@ -52,7 +52,6 @@ public class CheckersApp extends Application {
             }
         }
         root.getChildren().add(turn.turnUI());
-        return root;
     }
 
     private MoveResult tryMove(Piece piece, int newX, int newY) {
@@ -98,10 +97,14 @@ public class CheckersApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(createContent());
+        createContent(root);
+    	scene = new Scene(root);
+        resRoot = FXMLLoader.load(getClass().getResource("application/resources/EndPanel.fxml"));
+        resScene = new SubScene(resRoot,400,400);
         primaryStage.setTitle("CheckersApp");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
     }
   
 
@@ -159,9 +162,12 @@ public class CheckersApp extends Application {
             if(GameResult!=-1) {
             	if(GameResult==1) {
             		System.out.println("Red WIN");
+            		GameResPanel.setWinnerText("Red");
             	}else if(GameResult==2) {
             		System.out.println("White WIN");
+            		GameResPanel.setWinnerText("White");
             	}
+        		root.getChildren().add(resScene);
             }
         });
 
