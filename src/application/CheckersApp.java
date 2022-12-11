@@ -1,30 +1,28 @@
 package application;
-
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
+import java.util.ArrayList;
 public class CheckersApp extends Application {
 
     public static final int TILE_SIZE = 75;
     public static final int WIDTH = 8;
     public static final int HEIGHT = 8;
-
+    private ArrayList<Piece> whitePiece = new ArrayList<>();
+    private ArrayList<Piece> redPiece = new ArrayList<>();
     private Tile[][] board = new Tile[WIDTH][HEIGHT];
-
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
-    
+    private GameSubScene resScene;
+    Scene scene;
+    Pane root = new Pane();
     private TurnMove turn = new TurnMove();
-
-    private Parent createContent() {
-        Pane root = new Pane();
+    private void createContent(Pane croot) {
         root.setPrefSize(WIDTH * TILE_SIZE + 160, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
-
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
                 Tile tile = new Tile((x + y) % 2 == 0, x, y);
@@ -36,10 +34,12 @@ public class CheckersApp extends Application {
 
                 if (y <= 2 && (x + y) % 2 != 0) {
                     piece = makePiece(PieceType.RED, x, y);
+                    redPiece.add(piece);
                 }
 
                 if (y >= 5 && (x + y) % 2 != 0) {
                     piece = makePiece(PieceType.WHITE, x, y);
+                    whitePiece.add(piece);
                 }
 
                 if (piece != null) {
@@ -48,9 +48,7 @@ public class CheckersApp extends Application {
                 }
             }
         }
-        
         root.getChildren().add(turn.turnUI());
-        return root;
     }
 
     private MoveResult tryMove(Piece piece, int newX, int newY) {
@@ -96,10 +94,14 @@ public class CheckersApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(createContent());
+        createContent(root);
+    	scene = new Scene(root);
+        resScene = new GameSubScene();
+        System.out.printf("%d %d\n",redPiece.size(), whitePiece.size());
         primaryStage.setTitle("CheckersApp");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
     }
   
 
@@ -123,7 +125,7 @@ public class CheckersApp extends Application {
 
             int x0 = toBoard(piece.getOldX());
             int y0 = toBoard(piece.getOldY());
-
+            int GameResult = 0;
             switch (result.getType()) {
                 case NONE:
                     piece.abortMove();
@@ -139,11 +141,12 @@ public class CheckersApp extends Application {
                     piece.move(newX, newY);
                     board[x0][y0].setPiece(null);
                     board[newX][newY].setPiece(piece);
-
                     Piece otherPiece = result.getPiece();
                     board[toBoard(otherPiece.getOldX())][toBoard(otherPiece.getOldY())].setPiece(null);
+                    if(otherPiece.getType() == PieceType.RED) redPiece.remove(otherPiece);
+                    else if(otherPiece.getType() == PieceType.WHITE) whitePiece.remove(otherPiece);
                     pieceGroup.getChildren().remove(otherPiece);
-                    
+                    GameResult = GameRes();
                     break;
             }
             
@@ -155,12 +158,30 @@ public class CheckersApp extends Application {
             }
             
             System.out.println(piece.getIsKing());
+            if(GameResult!=0) {
+            	System.out.println(GameResult);
+            	if(GameResult==1) {
+            		System.out.println("Red WIN");
+            		resScene.setTxt("Red");
+            	}else if(GameResult==2) {
+            		System.out.println("White WIN");
+            		resScene.setTxt("White");
+            	}
+        		root.getChildren().add(resScene);
+            }
         });
 
         return piece;
+    }
+    
+    private int GameRes() {
+    	if(whitePiece.size()==0)return 1;
+    	if(redPiece.size()==0)return 2;
+    	return 0;
     }
 
     public static void main(String[] args) {
         launch(args);
     }
+    
 }
