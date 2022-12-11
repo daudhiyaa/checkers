@@ -99,7 +99,7 @@ public class CheckersApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         createContent(root);
     	scene = new Scene(root);
-        resRoot = FXMLLoader.load(getClass().getResource("application/resources/EndPanel.fxml"));
+        resRoot = FXMLLoader.load(getClass().getResource("EndPanel.fxml"));
         resScene = new SubScene(resRoot,400,400);
         primaryStage.setTitle("CheckersApp");
         primaryStage.setScene(scene);
