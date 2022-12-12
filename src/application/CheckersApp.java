@@ -4,6 +4,7 @@ import static application.game.GameBase.TILE_SIZE;
 import static application.game.GameBase.WIDTH;
 
 import application.game.GameBase;
+import application.game.MainMenu;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,13 +18,14 @@ public class CheckersApp extends Application {
 
 	Scene scene;
 	Pane root = new Pane();
+	MainMenu mainMenu = new MainMenu();
 	
     @Override
     public void start(Stage primaryStage) throws Exception {
-    	root.setPrefSize(WIDTH * TILE_SIZE + 160, HEIGHT * TILE_SIZE);
-    	root.getChildren().add(makeMenu());
+    	root.setPrefSize(300, 400);
+    	root.getChildren().add(mainMenu.getPane());
     	scene = new Scene(root);
-        primaryStage.setTitle("CheckersApp");
+        primaryStage.setTitle("Checkers Game");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
