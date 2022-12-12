@@ -22,10 +22,10 @@ public class CheckersApp extends Application {
 	
     @Override
     public void start(Stage primaryStage) throws Exception {
-    	root.setPrefSize(WIDTH * TILE_SIZE + 160, HEIGHT * TILE_SIZE);
+    	root.setPrefSize(300, 400);
     	root.getChildren().add(mainMenu.getPane());
     	scene = new Scene(root);
-        primaryStage.setTitle("CheckersApp");
+        primaryStage.setTitle("Checkers Game");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
