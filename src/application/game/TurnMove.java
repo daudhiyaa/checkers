@@ -1,8 +1,13 @@
-package application;
+package application.game;
+
+import static application.game.GameBase.HEIGHT;
+import static application.game.GameBase.TILE_SIZE;
+import static application.game.GameBase.WIDTH;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import application.model.PieceType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -53,8 +58,8 @@ public class TurnMove {
 	public VBox turnUI() {
 		VBox box = new VBox();
 		
-		box.setTranslateX(CheckersApp.WIDTH * CheckersApp.TILE_SIZE);
-		box.setPrefHeight(CheckersApp.HEIGHT * CheckersApp.TILE_SIZE);
+		box.setTranslateX(WIDTH * TILE_SIZE);
+		box.setPrefHeight(HEIGHT * TILE_SIZE);
 		box.setPrefWidth(160);
 			
 		box.getChildren().add(markerOpponent);
