@@ -1,4 +1,9 @@
 package application;
+import static application.game.GameBase.HEIGHT;
+import static application.game.GameBase.TILE_SIZE;
+import static application.game.GameBase.WIDTH;
+
+import application.game.GameBase;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,10 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import static application.GameBase.TILE_SIZE;
-import static application.GameBase.HEIGHT;
-import static application.GameBase.WIDTH;
 
 public class CheckersApp extends Application {
 
@@ -27,6 +28,7 @@ public class CheckersApp extends Application {
         primaryStage.show();
     }
     
+    //temporary
     private Pane makeMenu() {
     	Pane menu = new Pane();
     	Button vsp = new Button();

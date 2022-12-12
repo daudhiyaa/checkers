@@ -1,4 +1,8 @@
-package application;
+package application.game;
+
+import static application.game.GameBase.HEIGHT;
+import static application.game.GameBase.TILE_SIZE;
+import static application.game.GameBase.WIDTH;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,10 +22,6 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-
-import static application.GameBase.TILE_SIZE;
-import static application.GameBase.HEIGHT;
-import static application.GameBase.WIDTH;
 
 public class TurnMove {
 	

@@ -1,4 +1,4 @@
-package application;
+package application.game;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.scene.SubScene;

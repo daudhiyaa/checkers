@@ -1,9 +1,9 @@
 package application.model;
 
+import static application.game.GameBase.TILE_SIZE;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import static application.GameBase.TILE_SIZE;
 
 public class Tile extends Rectangle {
 
