@@ -18,6 +18,10 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import static application.GameBase.TILE_SIZE;
+import static application.GameBase.HEIGHT;
+import static application.GameBase.WIDTH;
+
 public class TurnMove {
 	
 	private boolean playerTurn = true;
@@ -53,8 +57,8 @@ public class TurnMove {
 	public VBox turnUI() {
 		VBox box = new VBox();
 		
-		box.setTranslateX(CheckersApp.WIDTH * CheckersApp.TILE_SIZE);
-		box.setPrefHeight(CheckersApp.HEIGHT * CheckersApp.TILE_SIZE);
+		box.setTranslateX(WIDTH * TILE_SIZE);
+		box.setPrefHeight(HEIGHT * TILE_SIZE);
 		box.setPrefWidth(160);
 			
 		box.getChildren().add(markerOpponent);

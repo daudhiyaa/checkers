@@ -4,7 +4,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
-import static application.CheckersApp.TILE_SIZE;
+import static application.GameBase.TILE_SIZE;
 
 public class Piece extends StackPane {
 
