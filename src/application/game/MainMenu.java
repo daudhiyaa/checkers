@@ -9,8 +9,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -22,26 +28,29 @@ public class MainMenu {
 	
 	public MainMenu() {
 		mainMenuPane = new Pane();		
-		CreateButtons();
+		createButtons();
+		createBackground();
 	}
 	
 	public Pane getPane() {
 		return mainMenuPane;
 	}
 	
-	private void CreateButtons() {
+	private void createButtons() {
 		Text judul = new Text("CHECKERS GAME");
 		try {
 			judul.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 18));
 		} catch (FileNotFoundException e1) {
 			judul.setFont(Font.font("Verdana", 18));
 		}
+		judul.setFill(Color.WHITE);
+		
 		VBox box = new VBox(judul);
 		box.setPrefSize(300, 400);
 		
-		Button normalButton = new Button("NORMAL");
+		Button normalButton = new Button("NORMAL MODE");
 		menuButtons.add(normalButton);
-		Button timerButton = new Button("TIMER");
+		Button timerButton = new Button("TIMER MODE");
 		menuButtons.add(timerButton);
 		Button vsCompButton = new Button("VS COMPUTER");
 		menuButtons.add(vsCompButton);
@@ -66,5 +75,11 @@ public class MainMenu {
 		
 		box.getChildren().addAll(normalButton, timerButton, vsCompButton, creditsButton, exitButton);
 		mainMenuPane.getChildren().add(box);
+	}
+	
+	private void createBackground() {
+		Image backgroundImage = new Image("/application/resources/deep_blue.png", 256, 256, false, false);
+		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
+		mainMenuPane.setBackground(new Background(background));
 	}
 }
