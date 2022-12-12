@@ -33,6 +33,7 @@ public class CheckersApp extends Application {
     	Pane menu = new Pane();
     	Button vsp = new Button();
     	Button vsc = new Button();
+    	Button vst = new Button();
     	VBox box = new VBox();
     	
     	vsc.setOnAction(new EventHandler<ActionEvent>() {
@@ -41,9 +42,15 @@ public class CheckersApp extends Application {
             }
         });
     	
+    	vst.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            	
+            }
+        });
+    	
     	vsp.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            	changeGameScene();
+            	changeVSPlayer();
             }
         });
     	
@@ -58,7 +65,7 @@ public class CheckersApp extends Application {
     	return menu;
     }
     
-    private void changeGameScene() {
+    private void changeVSPlayer() {
     	System.out.println("changeScene");
     	GameBase base = new GameBase();
     	base.createContent();
