@@ -17,63 +17,49 @@ import javafx.stage.Stage;
 public class CheckersApp extends Application {
 
 	Scene scene;
-	Pane root = new Pane();
+	static Stage mainStage;
+	static Pane root = new Pane();
 	MainMenu mainMenu = new MainMenu();
+	static GameBase vsPlayer = new GameBase();
 	
     @Override
     public void start(Stage primaryStage) throws Exception {
-    	root.setPrefSize(300, 400);
+    	root.setPrefSize(MainMenu.WIDTH, MainMenu.HEIGHT);
     	root.getChildren().add(mainMenu.getPane());
+    	mainStage = primaryStage;
     	scene = new Scene(root);
-        primaryStage.setTitle("Checkers Game");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        mainStage.setTitle("Checkers Game");
+        mainStage.setScene(scene);
+        mainStage.show();
     }
     
-    //temporary
-    private Pane makeMenu() {
-    	Pane menu = new Pane();
-    	Button vsp = new Button();
-    	Button vsc = new Button();
-    	Button vst = new Button();
-    	VBox box = new VBox();
-    	
-    	vsc.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-            	
-            }
-        });
-    	
-    	vst.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-            	
-            }
-        });
-    	
-    	vsp.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-            	changeVSPlayer();
-            }
-        });
-    	
-    	vsc.setText("VS Computer");
-    	vsp.setText("VS Player");
-    	
-    	box.getChildren().addAll(vsc,vsp);
-    	menu.getChildren().addAll(box);   
-    	
-    	
-    	
-    	return menu;
-    }
-    
-    private void changeVSPlayer() {
-    	System.out.println("changeScene");
-    	GameBase base = new GameBase();
-    	base.createContent();
+    public static void toVSPlayer() {
+    	vsPlayer.createContent();
     	root.getChildren().remove(0);
-    	root.getChildren().add(base.getRoot());
+    	root.getChildren().add(vsPlayer.getRoot());
+    	mainStage.setWidth(WIDTH * TILE_SIZE + 160);
+    	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + HEIGHT * TILE_SIZE);
     }
+    
+    public static void toVSComp() {
+//    	vsPlayer.createContent();
+    	root.getChildren().remove(0);
+//    	root.getChildren().add(vsPlayer.getRoot());
+    	mainStage.setWidth(WIDTH * TILE_SIZE + 160);
+    	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + HEIGHT * TILE_SIZE);
+    }
+    
+    public static void toVSPlayerTime() {
+//    	vsPlayer.createContent();
+    	root.getChildren().remove(0);
+//    	root.getChildren().add(vsPlayer.getRoot());
+    	mainStage.setWidth(WIDTH * TILE_SIZE + 160);
+    	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + HEIGHT * TILE_SIZE);
+    }
+    
+    
+    
+    
 
     public static void main(String[] args) {
         launch(args);

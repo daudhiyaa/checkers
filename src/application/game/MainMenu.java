@@ -5,11 +5,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.CheckersApp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -25,6 +28,9 @@ public class MainMenu {
 	private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
 	private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('application/resources/green_buttonRe.png');";
 	List<Button> menuButtons = new ArrayList<Button>();
+	
+	public static final int WIDTH = 300;
+    public static final int HEIGHT = 400;
 	
 	public MainMenu() {
 		mainMenuPane = new Pane();		
@@ -50,10 +56,31 @@ public class MainMenu {
 		
 		Button normalButton = new Button("NORMAL MODE");
 		menuButtons.add(normalButton);
+		
+		normalButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            	CheckersApp.toVSPlayer();
+            }
+        });
+		
 		Button timerButton = new Button("TIMER MODE");
 		menuButtons.add(timerButton);
+		
+		timerButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            	
+            }
+        });
+		
 		Button vsCompButton = new Button("VS COMPUTER");
 		menuButtons.add(vsCompButton);
+		
+		vsCompButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            	
+            }
+        });
+		
 		Button creditsButton = new Button("CREDITS");
 		menuButtons.add(creditsButton);
 		Button exitButton = new Button("EXIT");
