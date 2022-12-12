@@ -135,6 +135,14 @@ public class CheckersApp extends Application {
                     board[x0][y0].setPiece(null);
                     board[newX][newY].setPiece(piece);
                     
+                    if(((newY == HEIGHT-1 && type == PieceType.RED) 
+                    		|| (newY == 0 && type == PieceType.WHITE)) && (!piece.getIsKing())) {
+                    	piece.changeToKing();
+                    	
+                    	turn.changeTurn();
+                    	break;
+                    }
+                    
                     turn.changeTurn();
                     break;
                 case KILL:
@@ -147,15 +155,17 @@ public class CheckersApp extends Application {
                     else if(otherPiece.getType() == PieceType.WHITE) whitePiece.remove(otherPiece);
                     pieceGroup.getChildren().remove(otherPiece);
                     GameResult = GameRes();
+                    
+                    if(((newY == HEIGHT-1 && type == PieceType.RED) 
+                    		|| (newY == 0 && type == PieceType.WHITE)) && (!piece.getIsKing())) {
+                    	piece.changeToKing();
+                    	
+                    	turn.changeTurn();
+                    	break;
+                    }
                     break;
             }
             
-            if(((newY == HEIGHT-1 && type == PieceType.RED) 
-            		|| (newY == 0 && type == PieceType.WHITE)) && (!piece.getIsKing())) {
-            	piece.changeToKing();
-            	
-            	turn.changeTurn();
-            }
             
             System.out.println(piece.getIsKing());
             if(GameResult!=0) {
