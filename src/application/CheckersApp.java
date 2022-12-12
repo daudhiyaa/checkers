@@ -8,12 +8,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import static application.GameBase.TILE_SIZE;
+import static application.GameBase.HEIGHT;
+import static application.GameBase.WIDTH;
+
 public class CheckersApp extends Application {
 
 	Scene scene;
 	Pane root = new Pane();
+	
     @Override
     public void start(Stage primaryStage) throws Exception {
+    	root.setPrefSize(WIDTH * TILE_SIZE + 160, HEIGHT * TILE_SIZE);
     	root.getChildren().add(makeMenu());
     	scene = new Scene(root);
         primaryStage.setTitle("CheckersApp");
