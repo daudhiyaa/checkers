@@ -3,6 +3,7 @@ import static application.game.GameBase.HEIGHT;
 import static application.game.GameBase.TILE_SIZE;
 import static application.game.GameBase.WIDTH;
 
+import application.game.CreditsScene;
 import application.game.GameBase;
 import application.game.MainMenu;
 import javafx.application.Application;
@@ -20,6 +21,8 @@ public class CheckersApp extends Application {
 	static Stage mainStage;
 	static Pane root = new Pane();
 	MainMenu mainMenu = new MainMenu();
+	static MainMenu mainMenuStatic = new MainMenu();
+	static CreditsScene creditsScene = new CreditsScene();
 	static GameBase vsPlayer = new GameBase();
 	
     @Override
@@ -39,6 +42,7 @@ public class CheckersApp extends Application {
     	root.getChildren().add(vsPlayer.getRoot());
     	mainStage.setWidth(WIDTH * TILE_SIZE + 160);
     	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + HEIGHT * TILE_SIZE);
+    	mainStage.centerOnScreen();
     }
     
     public static void toVSComp() {
@@ -57,9 +61,25 @@ public class CheckersApp extends Application {
     	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + HEIGHT * TILE_SIZE);
     }
     
+    public static void showCreditsScene() {
+    	root.getChildren().remove(0);
+    	root.getChildren().add(creditsScene.getPane());
+    	mainStage.setWidth(200);
+    	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + 250);
+    	mainStage.centerOnScreen();
+    }
     
+    public static void backToMainMenu() {
+    	root.getChildren().remove(0);
+    	root.getChildren().add(mainMenuStatic.getPane());
+    	mainStage.setWidth(MainMenu.WIDTH);
+    	mainStage.setHeight((mainStage.getHeight() - CreditsScene.HEIGHT) + MainMenu.HEIGHT);
+    	mainStage.centerOnScreen();
+    }
     
-    
+    public static void exitGame() {
+    	mainStage.close();
+    }
 
     public static void main(String[] args) {
         launch(args);
