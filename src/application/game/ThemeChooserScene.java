@@ -1,5 +1,7 @@
 package application.game;
 
+import static application.game.MainMenu.BACKGROUND_IMAGE;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -13,28 +15,27 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import static application.game.MainMenu.BACKGROUND_IMAGE;
-
-public class CreditsScene{
-	private Pane creditsPane = new Pane();
-	private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
-	
-	public static final int WIDTH = 200;
-    public static final int HEIGHT = 250;
+public class ThemeChooserScene{
+	public static final int THEMEWIDTH = 450;
+    public static final int THEMEHEIGHT = 250;
+    private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
     
-	public CreditsScene() {		
+	private Pane themePane = new Pane();
+	
+	public ThemeChooserScene() {
 		createContents();
 		createBackground();
 	}
 	
 	public Pane getPane() {
-		return creditsPane;
+		return themePane;
 	}
 	
 	private Text createText(int size, String title) {
@@ -51,11 +52,11 @@ public class CreditsScene{
 	
 	private void createContents() {
 		VBox box = new VBox();
-		box.setPrefSize(WIDTH, HEIGHT);
-		Text credit = createText(18, "CREDITS");
-		Text key = createText(12, "Keyisa Raihan");
-		Text daud = createText(12, "Daud Dhiya' R");
-		Text alfa = createText(12, "Alfa Fakhrur");
+		box.setPrefSize(THEMEWIDTH, THEMEHEIGHT);
+		Text chooseTheme = createText(18, "CHOOSE THEME");
+		
+		ChooseThemeBox CTB = new ChooseThemeBox();
+		HBox boxCTB = CTB.getThemeBox();
 		
 		Button back = new Button("Back");
 		try {
@@ -65,23 +66,22 @@ public class CreditsScene{
 			back.setFont(Font.font("Verdana", 12));
 		}
 		back.setPrefSize(100, 25);
-//		back.setStyle("-fx-background-color: transparent; -fx-background-image: url('application/resources/green_buttonRe.png');");
 		
 		back.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            	CheckersApp.backToMainMenu(false);
+            	CheckersApp.backToMainMenu(true);
             }
         });
 		
-		box.getChildren().addAll(credit, key,daud,alfa, back);
+		box.getChildren().addAll(chooseTheme, boxCTB, back);
 		box.setAlignment(Pos.CENTER);
 		box.setSpacing(17);
-		creditsPane.getChildren().add(box);
+		themePane.getChildren().add(box);
 	}
 	
 	private void createBackground() {
 		Image backgroundImage = new Image(BACKGROUND_IMAGE, 256, 256, false, false);
 		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
-		creditsPane.setBackground(new Background(background));
+		themePane.setBackground(new Background(background));
 	}
 }

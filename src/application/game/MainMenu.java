@@ -84,6 +84,13 @@ public class MainMenu {
             }
         });
 		
+		Button chooseTheme = createButton("CHOOSE THEME");
+		chooseTheme.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            	CheckersApp.showThemeChooser();
+            }
+        });
+		
 		Button creditsButton = createButton("CREDITS");
 		creditsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
@@ -101,7 +108,7 @@ public class MainMenu {
 		box.setAlignment(Pos.CENTER);
 		box.setSpacing(17);
 		
-		box.getChildren().addAll(normalButton, timerButton, vsCompButton, creditsButton, exitButton);
+		box.getChildren().addAll(normalButton, timerButton, vsCompButton, chooseTheme, creditsButton, exitButton);
 		mainMenuPane.getChildren().add(box);
 	}
 	
