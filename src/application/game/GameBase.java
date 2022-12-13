@@ -15,15 +15,15 @@ public class GameBase {
 	public static final int TILE_SIZE = 75;
     public static final int WIDTH = 8;
     public static final int HEIGHT = 8;
-    private ArrayList<Piece> whitePiece = new ArrayList<>();
-    private ArrayList<Piece> redPiece = new ArrayList<>();
-    private Tile[][] board = new Tile[WIDTH][HEIGHT];
-    private Group tileGroup = new Group();
-    private Group pieceGroup = new Group();
+    protected ArrayList<Piece> whitePiece = new ArrayList<>();
+    protected ArrayList<Piece> redPiece = new ArrayList<>();
+    protected Tile[][] board = new Tile[WIDTH][HEIGHT];
+    protected Group tileGroup = new Group();
+    protected Group pieceGroup = new Group();
     
-    private TurnMove turn = new TurnMove();
+    protected TurnMove turn = new TurnMove();
     
-    private GameSubScene resScene = new GameSubScene();
+    protected GameSubScene resScene = new GameSubScene();
     
     
     Pane root = new Pane();
@@ -60,7 +60,7 @@ public class GameBase {
         
     }
 
-    private MoveResult tryMove(Piece piece, int newX, int newY) {
+    protected MoveResult tryMove(Piece piece, int newX, int newY) {
         if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
             return new MoveResult(MoveType.NONE);
         }
@@ -97,11 +97,11 @@ public class GameBase {
         return new MoveResult(MoveType.NONE);
     }
 
-    private int toBoard(double pixel) {
+    protected int toBoard(double pixel) {
         return (int)(pixel + TILE_SIZE / 2) / TILE_SIZE;
     }
     
-    private Piece makePiece(PieceType type, int x, int y) {
+    protected Piece makePiece(PieceType type, int x, int y) {
         Piece piece = new Piece(type, x, y);
 
         piece.setOnMouseReleased(e -> {
@@ -162,8 +162,6 @@ public class GameBase {
                     break;
             }
             
-            
-            System.out.println(piece.getIsKing());
             if(GameResult!=0) {
             	System.out.println(GameResult);
             	if(GameResult==1) {
@@ -180,7 +178,7 @@ public class GameBase {
         return piece;
     }
     
-    private int GameRes() {
+    protected int GameRes() {
     	if(whitePiece.size()==0)return 1;
     	if(redPiece.size()==0)return 2;
     	return 0;

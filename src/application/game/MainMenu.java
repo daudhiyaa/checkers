@@ -80,7 +80,7 @@ public class MainMenu {
 		Button vsCompButton = createButton("VS COMPUTER");
 		vsCompButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            	
+            	CheckersApp.toVSComputer();
             }
         });
 		
