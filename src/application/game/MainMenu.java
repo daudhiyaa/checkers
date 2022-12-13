@@ -1,5 +1,9 @@
 package application.game;
 
+import static application.game.GameBase.HEIGHT;
+import static application.game.GameBase.TILE_SIZE;
+import static application.game.GameBase.WIDTH;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -33,7 +37,8 @@ public class MainMenu {
     public static final int HEIGHT = 400;
 	
 	public MainMenu() {
-		mainMenuPane = new Pane();		
+		mainMenuPane = new Pane();
+//		mainMenuPane.getChildren().add(creditsScene.getPane());
 		createButtons();
 		createBackground();
 	}
@@ -83,6 +88,13 @@ public class MainMenu {
 		
 		Button creditsButton = new Button("CREDITS");
 		menuButtons.add(creditsButton);
+		
+		creditsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            	CheckersApp.showCreditsScene();
+            }
+        });
+		
 		Button exitButton = new Button("EXIT");
 		menuButtons.add(exitButton);
 		
