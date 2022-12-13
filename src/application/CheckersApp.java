@@ -211,59 +211,65 @@ public class CheckersApp extends Application {
     	
     	for(Piece piece : redPiece) {
     		int temp = 0;
-    		int xNewT = 0;
-    		int yNewT = 0;
-    		int xNewTemp;
-    		int yNewTemp;
+    		int xNewPiece = 0;
+    		int yNewPiece = 0;
+    		int xNewPieceTemp;
+    		int yNewPieceTemp;
     		
             for(int combiX:combi) {
             	for (int combiY:combi) {
             		int x0 = toBoard(piece.getOldX());
                     int y0 = toBoard(piece.getOldY());
-            		xNewTemp = (int) (x0 + combiX);
-                	yNewTemp = (int) (y0 + combiY);
+            		xNewPieceTemp = (int) (x0 + combiX);
+                	yNewPieceTemp = (int) (y0 + combiY);
                 	
                 	MoveResult result;
                 	
-                	if (xNewTemp < 0 || yNewTemp < 0 || xNewTemp >= WIDTH || yNewTemp >= HEIGHT) {
+                	if (xNewPieceTemp < 0 || yNewPieceTemp < 0 || xNewPieceTemp >= WIDTH || yNewPieceTemp >= HEIGHT) {
                         result = new MoveResult(MoveType.NONE);
                     } else {
-                        result = tryMove(piece, xNewTemp, yNewTemp);
+                        result = tryMove(piece, xNewPieceTemp, yNewPieceTemp);
                     }
 	
                         switch (result.getType()) {
-                            case NONE:
-//                            	temp+=1;
-                                break;
                             case NORMAL:
                                 temp+=1;
                                 if(temp <= 16) {
                                 	
-                                	xNewT = xNewTemp;
-                                    yNewT = yNewTemp;
-                                    System.out.println("(Ineer )xNewT yNewT:" + xNewT + yNewT);
+                                	xNewPiece = xNewPieceTemp;
+                                    yNewPiece = yNewPieceTemp;
+                                    System.out.println("(Ineer )xNewPiece yNewPiece:" + xNewPiece + yNewPiece);
+                                }
+                                
+                                if((yNewPieceTemp == HEIGHT-1 ) 
+                                		&& (!piece.getIsKing())) {
+                                		temp+=16;
                                 }
                                 break;
                             case KILL:
                                 temp +=16;
-                                xNewT = xNewTemp;
-                                yNewT = yNewTemp;
+                                xNewPiece = xNewPieceTemp;
+                                yNewPiece = yNewPieceTemp;
+                                
+                                if((yNewPieceTemp == HEIGHT-1 ) 
+                                		&& (!piece.getIsKing())) {
+                                		temp+=16;
+                                }
                                 break;
+						default:
+							break;
                         }
                         
-                        if((yNewTemp == HEIGHT-1 ) 
-                        		&& (!piece.getIsKing())) {
-                        		temp+=1;
-                        }
                 		             	
             	}
             }
             System.out.println("temp : " + temp);
-            System.out.println("xNewT yNewT:" + xNewT + yNewT);
+            System.out.println("xNewPiece yNewPiece:" + xNewPiece + yNewPiece);
+            System.out.println("Score : " + point);
             
             if(temp>=point) {
-            	xNew = xNewT;
-            	yNew = yNewT;
+            	xNew = xNewPiece;
+            	yNew = yNewPiece;
             	pieceMove = piece;
             	point = temp;
             }
@@ -277,13 +283,9 @@ public class CheckersApp extends Application {
         int x0 = toBoard(pieceMove.getOldX());
         int y0 = toBoard(pieceMove.getOldY());
         
-
         result = tryMove(pieceMove, xNew, yNew);
 
         switch (result.getType()) {
-            case NONE:
-                pieceMove.abortMove();
-                break;
             case NORMAL:
                 pieceMove.move(xNew, yNew);
                 board[x0][y0].setPiece(null);
@@ -303,6 +305,8 @@ public class CheckersApp extends Application {
                 turn.changeTurn();
                 
                 break;
+		default:
+			break;
         }
         
         if((yNew == HEIGHT-1) && (!pieceMove.getIsKing())) {
