@@ -135,6 +135,7 @@ public class ModeComputer extends GameBase{
             }
     		
     	}
+    	
 
         MoveResult result;
 
@@ -171,11 +172,17 @@ public class ModeComputer extends GameBase{
         if((yNew == HEIGHT-1) && (!pieceMove.getIsKing())) {
         	pieceMove.changeToKing();
         }
+        
+        if(point == 0) {
+    		GameResult = 3;
+    	}
         if(GameResult!=0) {
         	if(GameResult==1) {
         		resScene.setTxt("Red");
         	}else if(GameResult==2) {
         		resScene.setTxt("White");
+        	}else {
+        		resScene.setTxt("DRAW");
         	}
     		root.getChildren().add(resScene);
         }
