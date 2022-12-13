@@ -6,89 +6,58 @@ import application.model.MoveResult;
 import application.model.MoveType;
 import application.model.Piece;
 import application.model.PieceType;
+import application.model.Tile;
+import javafx.animation.AnimationTimer;
 
 public class ModeComputer extends GameBase{
 	
 	@Override
-	protected Piece makePiece(PieceType type, int x, int y) {
-        Piece piece = new Piece(type, x, y);
-        piece.setOnMouseReleased(e -> {
-            int newX = toBoard(piece.getLayoutX());
-            int newY = toBoard(piece.getLayoutY());
+	public void createContent() {
+        root.setPrefSize(WIDTH * TILE_SIZE + 160, HEIGHT * TILE_SIZE);
+        root.getChildren().addAll(tileGroup, pieceGroup);
+        for (int y = 0; y < HEIGHT; y++) {
+            for (int x = 0; x < WIDTH; x++) {
+                Tile tile = new Tile((x + y) % 2 == 0, x, y);
+                board[x][y] = tile;
 
-            MoveResult result;
-            
-            if(turn.checkTurn(type)) {
-            	result = new MoveResult(MoveType.NONE);
-            }
-            else if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
-                result = new MoveResult(MoveType.NONE);
-            } else {
-                result = tryMove(piece, newX, newY);
-            }
+                tileGroup.getChildren().add(tile);
 
-            int x0 = toBoard(piece.getOldX());
-            int y0 = toBoard(piece.getOldY());
-            int GameResult = 0;
-            switch (result.getType()) {
-                case NONE:
-                    piece.abortMove();
-                    break;
-                case NORMAL:
-                    piece.move(newX, newY);
-                    board[x0][y0].setPiece(null);
-                    board[newX][newY].setPiece(piece);
-                    
-                    if(((newY == HEIGHT-1 && type == PieceType.RED) 
-                    		|| (newY == 0 && type == PieceType.WHITE)) && (!piece.getIsKing())) {
-                    	piece.changeToKing();
-                    	
-                    	turn.changeTurn();
-                    	computerMechanism();
-                    	break;
-                    }
-                    
-                    turn.changeTurn();
-                    computerMechanism();
-                    break;
-                case KILL:
-                    piece.move(newX, newY);
-                    board[x0][y0].setPiece(null);
-                    board[newX][newY].setPiece(piece);
-                    Piece otherPiece = result.getPiece();
-                    board[toBoard(otherPiece.getOldX())][toBoard(otherPiece.getOldY())].setPiece(null);
-                    if(otherPiece.getType() == PieceType.RED) redPiece.remove(otherPiece);
-                    else if(otherPiece.getType() == PieceType.WHITE) whitePiece.remove(otherPiece);
-                    pieceGroup.getChildren().remove(otherPiece);
-                    GameResult = GameRes();
-                    
-                    if(((newY == HEIGHT-1 && type == PieceType.RED) 
-                    		|| (newY == 0 && type == PieceType.WHITE)) && (!piece.getIsKing())) {
-                    	piece.changeToKing();
-                    	
-                    	turn.changeTurn();
-                    	computerMechanism();
-                    	break;
-                    }
-                    break;
-            }
-            
-            
-            if(GameResult!=0) {
-            	System.out.println(GameResult);
-            	if(GameResult==1) {
-            		System.out.println("Red WIN");
-            		resScene.setTxt("Red");
-            	}else if(GameResult==2) {
-            		System.out.println("White WIN");
-            		resScene.setTxt("White");
-            	}
-        		root.getChildren().add(resScene);
-            }
-        });
+                Piece piece = null;
 
-        return piece;
+                if (y <= 2 && (x + y) % 2 != 0) {
+                    piece = makePiece(PieceType.RED, x, y);
+                    redPiece.add(piece);
+                }
+
+                if (y >= 5 && (x + y) % 2 != 0) {
+                    piece = makePiece(PieceType.WHITE, x, y);
+                    whitePiece.add(piece);
+                }
+
+                if (piece != null) {
+                    tile.setPiece(piece);
+                    pieceGroup.getChildren().add(piece);
+                }
+            }
+        }
+        root.getChildren().add(turn.turnUI());
+        createGameLoop();
+        
     }
+	
+	private void createGameLoop() {
+		AnimationTimer gameTimer = new AnimationTimer() {
+
+			@Override
+			public void handle(long now) {
+				if(!turn.getPlayerTurn()) {
+					computerMechanism();
+				}
+			}
+			
+		};
+		gameTimer.start();
+	}
 	
 	private void computerMechanism() {
 		Piece pieceMove = null;
@@ -132,8 +101,7 @@ public class ModeComputer extends GameBase{
                                 if(temp <= 16) {
                                 	
                                 	xNewPiece = xNewPieceTemp;
-                                    yNewPiece = yNewPieceTemp;
-                                    System.out.println("(Ineer )xNewPiece yNewPiece:" + xNewPiece + yNewPiece);
+                                    yNewPiece = yNewPieceTemp;                                   
                                 }
                                 
                                 if((yNewPieceTemp == HEIGHT-1 ) 

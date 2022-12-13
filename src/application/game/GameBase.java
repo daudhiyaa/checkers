@@ -18,7 +18,7 @@ public class GameBase {
     protected ArrayList<Piece> whitePiece = new ArrayList<>();
     protected ArrayList<Piece> redPiece = new ArrayList<>();
     protected Tile[][] board = new Tile[WIDTH][HEIGHT];
-    private Group tileGroup = new Group();
+    protected Group tileGroup = new Group();
     protected Group pieceGroup = new Group();
     
     protected TurnMove turn = new TurnMove();
