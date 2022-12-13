@@ -21,6 +21,7 @@ public class CheckersApp extends Application {
 	static Stage mainStage;
 	static Pane root = new Pane();
 	MainMenu mainMenu = new MainMenu();
+	static MainMenu mainMenuStatic = new MainMenu();
 	static CreditsScene creditsScene = new CreditsScene();
 	static GameBase vsPlayer = new GameBase();
 	
@@ -64,8 +65,20 @@ public class CheckersApp extends Application {
     	root.getChildren().remove(0);
     	root.getChildren().add(creditsScene.getPane());
     	mainStage.setWidth(200);
-    	mainStage.setHeight(250);
+    	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + 250);
     	mainStage.centerOnScreen();
+    }
+    
+    public static void backToMainMenu() {
+    	root.getChildren().remove(0);
+    	root.getChildren().add(mainMenuStatic.getPane());
+    	mainStage.setWidth(MainMenu.WIDTH);
+    	mainStage.setHeight((mainStage.getHeight() - CreditsScene.HEIGHT) + MainMenu.HEIGHT);
+    	mainStage.centerOnScreen();
+    }
+    
+    public static void exitGame() {
+    	mainStage.close();
     }
 
     public static void main(String[] args) {

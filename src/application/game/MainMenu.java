@@ -1,22 +1,14 @@
 package application.game;
 
-import static application.game.GameBase.HEIGHT;
-import static application.game.GameBase.TILE_SIZE;
-import static application.game.GameBase.WIDTH;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 import application.CheckersApp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -30,16 +22,15 @@ import javafx.scene.text.Text;
 public class MainMenu {
 	private Pane mainMenuPane;
 	private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
+	public final static String BACKGROUND_IMAGE = "/application/resources/deep_blue.png";
 	private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('application/resources/green_buttonRe.png');";
-	List<Button> menuButtons = new ArrayList<Button>();
 	
 	public static final int WIDTH = 300;
     public static final int HEIGHT = 400;
 	
 	public MainMenu() {
 		mainMenuPane = new Pane();
-//		mainMenuPane.getChildren().add(creditsScene.getPane());
-		createButtons();
+		createContents();
 		createBackground();
 	}
 	
@@ -47,67 +38,65 @@ public class MainMenu {
 		return mainMenuPane;
 	}
 	
-	private void createButtons() {
+	private Button createButton(String txt) {
+		Button newBtn = new Button(txt);
+		newBtn.setPrefSize(150, 25);
+//		btn.setStyle(BUTTON_FREE_STYLE);
+		try {
+			newBtn.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 12));
+		}
+		catch (FileNotFoundException e) {
+			newBtn.setFont(Font.font("Verdana", 12));
+		}
+		return newBtn;
+	}
+	
+	private void createContents() {
 		Text judul = new Text("CHECKERS GAME");
 		try {
-			judul.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 18));
+			judul.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 23));
 		} catch (FileNotFoundException e1) {
-			judul.setFont(Font.font("Verdana", 18));
+			judul.setFont(Font.font("Verdana", 23));
 		}
 		judul.setFill(Color.WHITE);
 		
 		VBox box = new VBox(judul);
-		box.setPrefSize(300, 400);
+		box.setPrefSize(WIDTH, HEIGHT);
 		
-		Button normalButton = new Button("NORMAL MODE");
-		menuButtons.add(normalButton);
-		
+		Button normalButton = createButton("NORMAL MODE");
 		normalButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
             	CheckersApp.toVSPlayer();
             }
         });
 		
-		Button timerButton = new Button("TIMER MODE");
-		menuButtons.add(timerButton);
-		
+		Button timerButton = createButton("TIMER MODE");
 		timerButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
             	
             }
         });
 		
-		Button vsCompButton = new Button("VS COMPUTER");
-		menuButtons.add(vsCompButton);
-		
+		Button vsCompButton = createButton("VS COMPUTER");
 		vsCompButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
             	
             }
         });
 		
-		Button creditsButton = new Button("CREDITS");
-		menuButtons.add(creditsButton);
-		
+		Button creditsButton = createButton("CREDITS");
 		creditsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
             	CheckersApp.showCreditsScene();
             }
         });
 		
-		Button exitButton = new Button("EXIT");
-		menuButtons.add(exitButton);
-		
-		for(Button btn : menuButtons) {
-			btn.setPrefSize(150, 20);
-//			btn.setStyle(BUTTON_FREE_STYLE);
-			try {
-				btn.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 12));
-			}
-			catch (FileNotFoundException e) {
-				btn.setFont(Font.font("Verdana", 12));
-			}
-		}
+		Button exitButton = createButton("EXIT");
+		exitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            	CheckersApp.exitGame();
+            }
+        });
 		
 		box.setAlignment(Pos.CENTER);
 		box.setSpacing(17);
@@ -117,7 +106,7 @@ public class MainMenu {
 	}
 	
 	private void createBackground() {
-		Image backgroundImage = new Image("/application/resources/deep_blue.png", 256, 256, false, false);
+		Image backgroundImage = new Image(BACKGROUND_IMAGE, 256, 256, false, false);
 		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
 		mainMenuPane.setBackground(new Background(background));
 	}
