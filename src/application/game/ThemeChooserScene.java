@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
 
 public class ThemeChooserScene{
 	public static final int THEMEWIDTH = 450;
-    public static final int THEMEHEIGHT = 250;
+    public static final int THEMEHEIGHT = 300;
     private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
     
 	private Pane themePane = new Pane();

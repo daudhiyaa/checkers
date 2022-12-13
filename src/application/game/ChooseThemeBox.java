@@ -1,9 +1,15 @@
 package application.game;
 
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 public class ChooseThemeBox {
@@ -11,6 +17,7 @@ public class ChooseThemeBox {
     
     private String circleNotChoosen = "/application/resources/grey_circle.png";
 	private String circleChoosen = "/application/resources/red_choosen.png";
+	private String waterMelonTheme = "/application/resources/watermelon_theme.png";
 	private boolean isCircleChoosen;
 	
 	private ImageView themeImage;
@@ -23,6 +30,8 @@ public class ChooseThemeBox {
 	public HBox getThemeBox() {
 		return themeBox;
 	}
+	
+	List<ImageView> listCircle =  new ArrayList<ImageView>();
 	
 	private void createThemeBox() {
 		VBox theme1 = createThemeChooser();
@@ -37,14 +46,33 @@ public class ChooseThemeBox {
 	private VBox createThemeChooser() {
 		VBox newBox = new VBox();
 		
-		themeImage = new ImageView(circleChoosen);
+		themeImage = new ImageView(waterMelonTheme);
+		themeImage.setStyle("-fx-border-radius: 5;");
 		circleImage = new ImageView(circleNotChoosen);
+		listCircle.add(circleImage);
+		
 		isCircleChoosen = false;
+		
+//		circleImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//			public void handle(MouseEvent event) {
+//				for (ImageView img : listCircle.values()) {
+//					img.setIsCircleChoosen(false);
+//				}
+//				circleImage.setIsCircleChoosen(true);
+//		//		choosenShip = shipToPick.getShip();
+//			}
+//		}
 		
 		newBox.getChildren().addAll(themeImage, circleImage);
 		newBox.setAlignment(Pos.CENTER);
 		newBox.setSpacing(17);
 		return newBox;
+	}
+	
+	
+	
+	public boolean getCircleChoosen() {
+		return isCircleChoosen;
 	}
 	
 	public void setIsCircleChoosen(boolean isCircleChoosen) {
