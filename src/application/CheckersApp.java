@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -194,8 +195,8 @@ public class CheckersApp extends Application {
 //	}
 //    temporary computer mechanism
     private void computerMechanism() {
-    	
-    	Piece pieceMove;
+    		
+    	Piece pieceMove = null;
     	int point = 0;
     	int xNew = 0;
     	int yNew = 0;
@@ -209,7 +210,9 @@ public class CheckersApp extends Application {
 		combi.add(-2);
     	
     	for(Piece piece : redPiece) {
-    		int temp;
+    		int temp = 0;
+    		int xNewT = 0;
+    		int yNewT = 0;
     		int xNewTemp;
     		int yNewTemp;
     		
@@ -220,8 +223,6 @@ public class CheckersApp extends Application {
             		xNewTemp = (int) (x0 + combiX);
                 	yNewTemp = (int) (y0 + combiY);
                 	
-                	System.out.println(xNewTemp +" " + yNewTemp);
-                	
                 	MoveResult result;
                 	
                 	if (xNewTemp < 0 || yNewTemp < 0 || xNewTemp >= WIDTH || yNewTemp >= HEIGHT) {
@@ -229,50 +230,85 @@ public class CheckersApp extends Application {
                     } else {
                         result = tryMove(piece, xNewTemp, yNewTemp);
                     }
-                	
-                	if(result.getType() != MoveType.NONE) {
-
+	
                         switch (result.getType()) {
                             case NONE:
-                                piece.abortMove();
+//                            	temp+=1;
                                 break;
                             case NORMAL:
-                                piece.move(xNewTemp, yNewTemp);
-                                board[x0][y0].setPiece(null);
-                                board[xNewTemp][yNewTemp].setPiece(piece);
-                                
-                                turn.changeTurn();
+                                temp+=1;
+                                if(temp <= 16) {
+                                	
+                                	xNewT = xNewTemp;
+                                    yNewT = yNewTemp;
+                                    System.out.println("(Ineer )xNewT yNewT:" + xNewT + yNewT);
+                                }
                                 break;
                             case KILL:
-                                piece.move(xNewTemp, yNewTemp);
-                                board[x0][y0].setPiece(null);
-                                board[xNewTemp][yNewTemp].setPiece(piece);
-
-                                Piece otherPiece = result.getPiece();
-                                board[toBoard(otherPiece.getOldX())][toBoard(otherPiece.getOldY())].setPiece(null);
-                                pieceGroup.getChildren().remove(otherPiece);
-                                
-                                // comp mech
-                                
-                                redPiece.remove(otherPiece);
-                                
-                                turn.changeTurn();
+                                temp +=16;
+                                xNewT = xNewTemp;
+                                yNewT = yNewTemp;
                                 break;
                         }
                         
                         if((yNewTemp == HEIGHT-1 ) 
                         		&& (!piece.getIsKing())) {
-                        	piece.changeToKing();
-                        	
-                        	turn.changeTurn();
+                        		temp+=1;
                         }
-                		             		
-                		return;
-                	}
+                		             	
             	}
+            }
+            System.out.println("temp : " + temp);
+            System.out.println("xNewT yNewT:" + xNewT + yNewT);
+            
+            if(temp>=point) {
+            	xNew = xNewT;
+            	yNew = yNewT;
+            	pieceMove = piece;
+            	point = temp;
             }
     		
     	}
+    	
+    	System.out.println("Comp : " + xNew + " " + yNew);
+
+        MoveResult result;
+
+        int x0 = toBoard(pieceMove.getOldX());
+        int y0 = toBoard(pieceMove.getOldY());
+        
+
+        result = tryMove(pieceMove, xNew, yNew);
+
+        switch (result.getType()) {
+            case NONE:
+                pieceMove.abortMove();
+                break;
+            case NORMAL:
+                pieceMove.move(xNew, yNew);
+                board[x0][y0].setPiece(null);
+                board[xNew][yNew].setPiece(pieceMove);
+                
+                turn.changeTurn();
+                break;
+            case KILL:
+                pieceMove.move(xNew, yNew);
+                board[x0][y0].setPiece(null);
+                board[xNew][yNew].setPiece(pieceMove);
+
+                Piece otherPiece = result.getPiece();
+                board[toBoard(otherPiece.getOldX())][toBoard(otherPiece.getOldY())].setPiece(null);
+                pieceGroup.getChildren().remove(otherPiece);
+                
+                turn.changeTurn();
+                
+                break;
+        }
+        
+        if((yNew == HEIGHT-1) && (!pieceMove.getIsKing())) {
+        	pieceMove.changeToKing();
+        }
+    	
     }
 
     public static void main(String[] args) {
