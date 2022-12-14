@@ -65,7 +65,7 @@ public class CheckersApp extends Application {
     	root.getChildren().remove(0);
     	root.getChildren().add(vsTime.getRoot());
     	mainStage.setWidth(WIDTH * TILE_SIZE + 160);
-    	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + HEIGHT * TILE_SIZE);
+    	mainStage.setHeight((mainStage.getHeight() - ThemeChooserScene.THEMEHEIGHT) + HEIGHT * TILE_SIZE);
     	mainStage.centerOnScreen();
     }
     
