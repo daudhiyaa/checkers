@@ -25,7 +25,6 @@ public class GameBase {
     
     protected GameSubScene resScene = new GameSubScene();
     
-    
     Pane root = new Pane();
     
     public void createContent() {

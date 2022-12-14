@@ -6,6 +6,7 @@ import static application.game.GameBase.WIDTH;
 import application.game.CreditsScene;
 import application.game.GameBase;
 import application.game.MainMenu;
+import application.game.ThemeChooserScene;
 import application.game.ModeComputer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -23,6 +24,7 @@ public class CheckersApp extends Application {
 	static Pane root = new Pane();
 	MainMenu mainMenu = new MainMenu();
 	static MainMenu mainMenuStatic = new MainMenu();
+	static ThemeChooserScene themeChooser = new ThemeChooserScene();
 	static CreditsScene creditsScene = new CreditsScene();
 	static GameBase vsPlayer = new GameBase();
 	static ModeComputer vsComp = new ModeComputer();
@@ -43,7 +45,7 @@ public class CheckersApp extends Application {
     	root.getChildren().remove(0);
     	root.getChildren().add(vsPlayer.getRoot());
     	mainStage.setWidth(WIDTH * TILE_SIZE + 160);
-    	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + HEIGHT * TILE_SIZE);
+    	mainStage.setHeight((mainStage.getHeight() - ThemeChooserScene.THEMEHEIGHT) + HEIGHT * TILE_SIZE);
     	mainStage.centerOnScreen();
     }
     
@@ -72,11 +74,26 @@ public class CheckersApp extends Application {
     	mainStage.centerOnScreen();
     }
     
-    public static void backToMainMenu() {
+    public static void backToMainMenu(boolean isThemeChooser) {
     	root.getChildren().remove(0);
     	root.getChildren().add(mainMenuStatic.getPane());
-    	mainStage.setWidth(MainMenu.WIDTH);
-    	mainStage.setHeight((mainStage.getHeight() - CreditsScene.HEIGHT) + MainMenu.HEIGHT);
+    	
+    	if(!isThemeChooser) {
+    		mainStage.setWidth(MainMenu.WIDTH);
+    		mainStage.setHeight((mainStage.getHeight() - CreditsScene.HEIGHT) + MainMenu.HEIGHT);
+    	}
+    	else {
+    		mainStage.setWidth((mainStage.getWidth() - ThemeChooserScene.THEMEWIDTH) + MainMenu.WIDTH);
+        	mainStage.setHeight((mainStage.getHeight() - ThemeChooserScene.THEMEHEIGHT) + MainMenu.HEIGHT);
+    	}
+    	mainStage.centerOnScreen();
+    }
+    
+    public static void showThemeChooser() {
+    	root.getChildren().remove(0);
+    	root.getChildren().add(themeChooser.getPane());
+    	mainStage.setWidth(ThemeChooserScene.THEMEWIDTH);
+    	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + ThemeChooserScene.THEMEHEIGHT);
     	mainStage.centerOnScreen();
     }
     

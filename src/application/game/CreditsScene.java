@@ -28,8 +28,7 @@ public class CreditsScene{
 	public static final int WIDTH = 200;
     public static final int HEIGHT = 250;
     
-	public CreditsScene() {
-		creditsPane = new Pane();		
+	public CreditsScene() {		
 		createContents();
 		createBackground();
 	}
@@ -66,10 +65,11 @@ public class CreditsScene{
 			back.setFont(Font.font("Verdana", 12));
 		}
 		back.setPrefSize(100, 25);
+//		back.setStyle("-fx-background-color: transparent; -fx-background-image: url('application/resources/green_buttonRe.png');");
 		
 		back.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            	CheckersApp.backToMainMenu();
+            	CheckersApp.backToMainMenu(false);
             }
         });
 		
