@@ -84,7 +84,7 @@ public class ThemeChooserScene{
 		
 		back.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            	CheckersApp.backToMainMenu(true);
+            	CheckersApp.backToMainMenu(2);
             }
         });
 		

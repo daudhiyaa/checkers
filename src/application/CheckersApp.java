@@ -77,17 +77,20 @@ public class CheckersApp extends Application {
     	mainStage.centerOnScreen();
     }
     
-    public static void backToMainMenu(boolean isThemeChooser) {
+    public static void backToMainMenu(int state) {
     	root.getChildren().remove(0);
     	root.getChildren().add(mainMenuStatic.getPane());
     	
-    	if(!isThemeChooser) {
+    	if(state ==1) {
     		mainStage.setWidth(MainMenu.WIDTH);
     		mainStage.setHeight((mainStage.getHeight() - CreditsScene.HEIGHT) + MainMenu.HEIGHT);
     	}
-    	else {
+    	else if(state ==2) {
     		mainStage.setWidth((mainStage.getWidth() - ThemeChooserScene.THEMEWIDTH) + MainMenu.WIDTH);
         	mainStage.setHeight((mainStage.getHeight() - ThemeChooserScene.THEMEHEIGHT) + MainMenu.HEIGHT);
+    	}else {
+    		mainStage.setWidth(MainMenu.WIDTH);
+    		mainStage.setHeight((MainMenu.HEIGHT));
     	}
     	mainStage.centerOnScreen();
     }

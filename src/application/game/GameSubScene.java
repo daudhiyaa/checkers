@@ -62,16 +62,16 @@ public class GameSubScene extends SubScene{
 	private void createBackButton() {
 		
 		backButton = new Button();
-        backButton.setText("Back To Menu");
+        backButton.setText("Back");
         backButton.setStyle(BUTTON_FREE_STYLE);
         backButton.setPrefHeight(45);
-        backButton.setPrefWidth(300);
+        backButton.setPrefWidth(150);
         
         try {
 			backButton.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 18));
 		}
 		catch (FileNotFoundException e) {
-			backButton.setFont(Font.font("Verdana", 23));
+			backButton.setFont(Font.font("Verdana", 20));
 		}
         
 		backButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -94,7 +94,7 @@ public class GameSubScene extends SubScene{
         
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            	CheckersApp.backToMainMenu(true);
+            	CheckersApp.backToMainMenu(3);
             }
         });
 	}

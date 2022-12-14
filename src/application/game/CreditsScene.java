@@ -69,7 +69,7 @@ public class CreditsScene{
 		
 		back.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            	CheckersApp.backToMainMenu(false);
+            	CheckersApp.backToMainMenu(1);
             }
         });
 		
