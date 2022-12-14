@@ -78,7 +78,7 @@ public class TimeAttackMode extends GameBase{
 					sMinutes = dFormat.format(minutes);	
 					timeLabel.setText(sMinutes + ":" + sSeconds);
 				}
-				if(minutes<=0 || seconds<=0) {
+				if(minutes==0 && seconds==0) {
 					flagStop = false;
 					if(redPiece.size() < whitePiece.size()) {
 						resScene.setTxt("White Win!");
