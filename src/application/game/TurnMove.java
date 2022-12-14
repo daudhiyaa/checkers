@@ -24,7 +24,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class TurnMove {
-	
 	private boolean playerTurn = true;
 	
 	private final static String TURNOFF_PATH = "application/resources/turn_off.png";
@@ -57,7 +56,6 @@ public class TurnMove {
 	
 	public VBox turnUI() {
 		VBox box = new VBox();
-		
 		box.setTranslateX(WIDTH * TILE_SIZE);
 		box.setPrefHeight(HEIGHT * TILE_SIZE);
 		box.setPrefWidth(160);
@@ -74,7 +72,6 @@ public class TurnMove {
 			
 		
 		box.setAlignment(Pos.CENTER);
-		
 		return box;
 	}
 	
@@ -129,5 +126,4 @@ public class TurnMove {
 		
 		return btn;
 	}
-	
 }

@@ -178,11 +178,11 @@ public class ModeComputer extends GameBase{
     	}
         if(GameResult!=0) {
         	if(GameResult==1) {
-        		resScene.setTxt("Red");
+        		resScene.setTxt("Red Win!");
         	}else if(GameResult==2) {
-        		resScene.setTxt("White");
+        		resScene.setTxt("White Win!");
         	}else {
-        		resScene.setTxt("DRAW");
+        		resScene.setTxt("DRAW!");
         	}
     		root.getChildren().add(resScene);
         }
