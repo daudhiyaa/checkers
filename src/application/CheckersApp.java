@@ -27,9 +27,6 @@ public class CheckersApp extends Application {
 	static MainMenu mainMenuStatic = new MainMenu();
 	static ThemeChooserScene themeChooser = new ThemeChooserScene();
 	static CreditsScene creditsScene = new CreditsScene();
-	static GameBase vsPlayer = new GameBase();
-	static ModeComputer vsComp = new ModeComputer();
-	static TimeAttackMode vsTime = new TimeAttackMode();
 	
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -43,6 +40,7 @@ public class CheckersApp extends Application {
     }
     
     public static void toVSPlayer() {
+    	GameBase vsPlayer = new GameBase();
     	vsPlayer.createContent();
     	root.getChildren().remove(0);
     	root.getChildren().add(vsPlayer.getRoot());
@@ -52,6 +50,7 @@ public class CheckersApp extends Application {
     }
     
     public static void toVSComputer() {
+    	ModeComputer vsComp = new ModeComputer();
     	vsComp.createContent();
     	root.getChildren().remove(0);
     	root.getChildren().add(vsComp.getRoot());
@@ -61,6 +60,7 @@ public class CheckersApp extends Application {
     }
     
     public static void toVSPlayerTime() {
+    	TimeAttackMode vsTime = new TimeAttackMode();
     	vsTime.createContent();
     	root.getChildren().remove(0);
     	root.getChildren().add(vsTime.getRoot());
@@ -90,7 +90,7 @@ public class CheckersApp extends Application {
         	mainStage.setHeight((mainStage.getHeight() - ThemeChooserScene.THEMEHEIGHT) + MainMenu.HEIGHT);
     	}else {
     		mainStage.setWidth(MainMenu.WIDTH);
-    		mainStage.setHeight((MainMenu.HEIGHT));
+    		mainStage.setHeight((mainStage.getHeight() - GameBase.GAMEHEIGHT) + MainMenu.HEIGHT);
     	}
     	mainStage.centerOnScreen();
     }

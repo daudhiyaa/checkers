@@ -15,6 +15,10 @@ public class GameBase {
 	public static final int TILE_SIZE = 75;
     public static final int WIDTH = 8;
     public static final int HEIGHT = 8;
+    
+    public static final int GAMEWIDTH = WIDTH * TILE_SIZE + 160;
+    public static final int GAMEHEIGHT = HEIGHT * TILE_SIZE;
+    
     protected ArrayList<Piece> whitePiece = new ArrayList<>();
     protected ArrayList<Piece> redPiece = new ArrayList<>();
     protected Tile[][] board = new Tile[WIDTH][HEIGHT];

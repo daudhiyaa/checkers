@@ -30,6 +30,7 @@ public class GameSubScene extends SubScene{
 			BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
 	private Label winTxt = new Label();
 	private Button backButton;
+	
 	public GameSubScene() {
 		super(new VBox(), 400,400);
 		prefWidth(400);
