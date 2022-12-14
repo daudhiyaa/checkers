@@ -78,9 +78,8 @@ public class CheckersApp extends Application {
     }
     
     public static void backToMainMenu(int state) {
-    	root.getChildren().remove(0);
+    	root.getChildren().remove(0);    	
     	root.getChildren().add(mainMenuStatic.getPane());
-    	
     	if(state ==1) {
     		mainStage.setWidth(MainMenu.WIDTH);
     		mainStage.setHeight((mainStage.getHeight() - CreditsScene.HEIGHT) + MainMenu.HEIGHT);
@@ -90,7 +89,7 @@ public class CheckersApp extends Application {
         	mainStage.setHeight((mainStage.getHeight() - ThemeChooserScene.THEMEHEIGHT) + MainMenu.HEIGHT);
     	}else {
     		mainStage.setWidth(MainMenu.WIDTH);
-    		mainStage.setHeight((MainMenu.HEIGHT));
+    		mainStage.setHeight((mainStage.getHeight()-MainMenu.HEIGHT));
     	}
     	mainStage.centerOnScreen();
     }
