@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import application.CheckersApp;
-import application.model.ButtonStyle;
+//import application.model.ButtonStyle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -109,7 +109,7 @@ public class ThemeChooserScene{
 		Button vsCompButton = createButton("VS COMPUTER");
 		vsCompButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            	
+            	CheckersApp.toVSComputer();
             }
         });
 		
