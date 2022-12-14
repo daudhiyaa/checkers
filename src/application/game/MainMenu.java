@@ -73,7 +73,7 @@ public class MainMenu {
 		Button timerButton = createButton("TIMER MODE");
 		timerButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            	
+            	CheckersApp.toVSPlayerTime();
             }
         });
 		

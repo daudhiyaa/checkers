@@ -42,7 +42,7 @@ public class GameSubScene extends SubScene{
 	}
 	
 	public void setTxt(String msg) {
-		winTxt.setText(msg + " Win!");
+		winTxt.setText(msg);
 	}
 	public BorderPane getPane() {
 		return (BorderPane)this.getRoot();

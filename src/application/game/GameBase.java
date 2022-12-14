@@ -166,10 +166,10 @@ public class GameBase {
             	System.out.println(GameResult);
             	if(GameResult==1) {
             		System.out.println("Red WIN");
-            		resScene.setTxt("Red");
+            		resScene.setTxt("Red Win!");
             	}else if(GameResult==2) {
             		System.out.println("White WIN");
-            		resScene.setTxt("White");
+            		resScene.setTxt("White Win!");
             	}
         		root.getChildren().add(resScene);
             }

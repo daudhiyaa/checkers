@@ -7,6 +7,7 @@ import application.game.CreditsScene;
 import application.game.GameBase;
 import application.game.MainMenu;
 import application.game.ModeComputer;
+import application.game.TimeAttackMode;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,6 +27,7 @@ public class CheckersApp extends Application {
 	static CreditsScene creditsScene = new CreditsScene();
 	static GameBase vsPlayer = new GameBase();
 	static ModeComputer vsComp = new ModeComputer();
+	static TimeAttackMode vsTime = new TimeAttackMode();
 	
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -57,11 +59,12 @@ public class CheckersApp extends Application {
     }
     
     public static void toVSPlayerTime() {
-//    	vsPlayer.createContent();
+    	vsTime.createContent();
     	root.getChildren().remove(0);
-//    	root.getChildren().add(vsPlayer.getRoot());
+    	root.getChildren().add(vsTime.getRoot());
     	mainStage.setWidth(WIDTH * TILE_SIZE + 160);
     	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + HEIGHT * TILE_SIZE);
+    	mainStage.centerOnScreen();
     }
     
     public static void showCreditsScene() {
