@@ -7,6 +7,7 @@ import application.game.CreditsScene;
 import application.game.GameBase;
 import application.game.MainMenu;
 import application.game.ThemeChooserScene;
+import application.game.ModeComputer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,6 +27,7 @@ public class CheckersApp extends Application {
 	static ThemeChooserScene themeChooser = new ThemeChooserScene();
 	static CreditsScene creditsScene = new CreditsScene();
 	static GameBase vsPlayer = new GameBase();
+	static ModeComputer vsComp = new ModeComputer();
 	
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -47,12 +49,13 @@ public class CheckersApp extends Application {
     	mainStage.centerOnScreen();
     }
     
-    public static void toVSComp() {
-//    	vsPlayer.createContent();
+    public static void toVSComputer() {
+    	vsComp.createContent();
     	root.getChildren().remove(0);
-//    	root.getChildren().add(vsPlayer.getRoot());
+    	root.getChildren().add(vsComp.getRoot());
     	mainStage.setWidth(WIDTH * TILE_SIZE + 160);
     	mainStage.setHeight((mainStage.getHeight() - MainMenu.HEIGHT) + HEIGHT * TILE_SIZE);
+    	mainStage.centerOnScreen();
     }
     
     public static void toVSPlayerTime() {

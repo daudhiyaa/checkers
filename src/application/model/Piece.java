@@ -8,7 +8,7 @@ import javafx.scene.shape.Ellipse;
 
 public class Piece extends StackPane {
 
-    private PieceType type;
+    protected PieceType type;
     private boolean isKing = false;
 
     private double mouseX, mouseY;
