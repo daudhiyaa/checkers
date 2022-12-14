@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import application.CheckersApp;
+import application.model.ButtonStyle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -25,8 +26,8 @@ public class MainMenu {
 	public final static String BACKGROUND_IMAGE = "/application/resources/deep_blue.png";
 	private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('application/resources/green_buttonRe.png');";
 	
-	public static final int WIDTH = 300;
-    public static final int HEIGHT = 400;
+	public static final int WIDTH = 350;
+    public static final int HEIGHT = 300;
 	
 	public MainMenu() {
 		mainMenuPane = new Pane();
@@ -63,28 +64,7 @@ public class MainMenu {
 		VBox box = new VBox(judul);
 		box.setPrefSize(WIDTH, HEIGHT);
 		
-		Button normalButton = createButton("NORMAL MODE");
-		normalButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-            	CheckersApp.toVSPlayer();
-            }
-        });
-		
-		Button timerButton = createButton("TIMER MODE");
-		timerButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-            	
-            }
-        });
-		
-		Button vsCompButton = createButton("VS COMPUTER");
-		vsCompButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-            	
-            }
-        });
-		
-		Button chooseTheme = createButton("CHOOSE THEME");
+		Button chooseTheme = createButton("PLAY");
 		chooseTheme.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
             	CheckersApp.showThemeChooser();
@@ -108,7 +88,7 @@ public class MainMenu {
 		box.setAlignment(Pos.CENTER);
 		box.setSpacing(17);
 		
-		box.getChildren().addAll(normalButton, timerButton, vsCompButton, chooseTheme, creditsButton, exitButton);
+		box.getChildren().addAll(chooseTheme, creditsButton, exitButton);
 		mainMenuPane.getChildren().add(box);
 	}
 	

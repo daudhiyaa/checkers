@@ -37,7 +37,6 @@ public class ChooseThemeBox {
 		VBox theme1 = createThemeChooser();
 		VBox theme2 = createThemeChooser();
 		
-//		themeBox.setPrefSize(ThemeChooserScene.THEMEWIDTH, ThemeChooserScene.THEMEHEIGHT);
 		themeBox.setSpacing(20);
 		themeBox.setAlignment(Pos.CENTER);
 		themeBox.getChildren().addAll(theme1, theme2);
@@ -47,21 +46,11 @@ public class ChooseThemeBox {
 		VBox newBox = new VBox();
 		
 		themeImage = new ImageView(waterMelonTheme);
-		themeImage.setStyle("-fx-border-radius: 5;");
+		themeImage.setStyle("-border-radius: 5;");
 		circleImage = new ImageView(circleNotChoosen);
 		listCircle.add(circleImage);
 		
 		isCircleChoosen = false;
-		
-//		circleImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//			public void handle(MouseEvent event) {
-//				for (ImageView img : listCircle.values()) {
-//					img.setIsCircleChoosen(false);
-//				}
-//				circleImage.setIsCircleChoosen(true);
-//		//		choosenShip = shipToPick.getShip();
-//			}
-//		}
 		
 		newBox.getChildren().addAll(themeImage, circleImage);
 		newBox.setAlignment(Pos.CENTER);
@@ -69,6 +58,15 @@ public class ChooseThemeBox {
 		return newBox;
 	}
 	
+//	listCircle.get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
+//		public void handle(MouseEvent event) {
+////			for (ImageView img : listCircle.values()) {
+////				img.setIsCircleChoosen(false);
+////			}
+////			circleImage.setIsCircleChoosen(true);
+//	//		choosenShip = shipToPick.getShip();
+//		}
+//	}
 	
 	
 	public boolean getCircleChoosen() {
