@@ -20,7 +20,7 @@ public class GameSubScene extends SubScene{
 	private final static String TURNON_PATH = "application/resources/turn_on.png";
 	
 	ImageView markerPlayer = new ImageView(TURNON_PATH);;
-	ImageView markerOpponent = new ImageView(TURNOFF_PATH);;
+	ImageView markerOpponentx = new ImageView(TURNOFF_PATH);;
 	
 	private Label winTxt = new Label();
 	private Button backButton = new Button();
