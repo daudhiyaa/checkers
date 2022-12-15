@@ -2,6 +2,7 @@ package application.model;
 
 import static application.game.GameBase.TILE_SIZE;
 
+import application.game.ChooseThemeBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -26,7 +27,13 @@ public class Tile extends Rectangle {
         setHeight(TILE_SIZE);
 
         relocate(x * TILE_SIZE, y * TILE_SIZE);
-
-        setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
+        
+        if(ChooseThemeBox.themeChoosenCode == 1) {
+        	//watermelon
+        	setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
+        }else if(ChooseThemeBox.themeChoosenCode == 2) {
+        	//monochrom
+        	setFill(light ? Color.valueOf("#808080") : Color.valueOf("#3b3b3b"));
+        }
     }
 }

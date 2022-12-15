@@ -18,12 +18,12 @@ public class ChooseThemeBox {
     private String circleNotChoosen = "/application/resources/grey_circle.png";
 	private String circleChoosen = "/application/resources/red_choosen.png";
 	private String waterMelonTheme = "/application/resources/watermelon_theme.png";
-	private String coffeTheme;
+	private String monochromTheme = "/application/resources/monokrom_theme.png";
 	
 	private ImageView themeImage;
 	private ImageView circleImage;
 	
-	// 1 = watermelon, 2 = coffe
+	// 1 = watermelon, 2 = monochrom
 	public static int themeChoosenCode = 1;
 	
 	private boolean isWaterMelon = true;
@@ -40,7 +40,7 @@ public class ChooseThemeBox {
 	
 	private void createThemeBox() {
 		VBox theme1 = createThemeChooser(waterMelonTheme);
-		VBox theme2 = createThemeChooser(waterMelonTheme);
+		VBox theme2 = createThemeChooser(monochromTheme);
 				
 		themeBox.setSpacing(20);
 		themeBox.setAlignment(Pos.CENTER);
@@ -52,6 +52,9 @@ public class ChooseThemeBox {
 		
 		themeImage = new ImageView(theme);
 		themeImage.setStyle("-border-radius: 5;");
+		
+		themeImage.setFitHeight(150);
+		themeImage.setFitWidth(150);
 		if(isWaterMelon) {
 			circleImage = new ImageView(circleChoosen);
 			isWaterMelon = false;
@@ -62,7 +65,7 @@ public class ChooseThemeBox {
 					//waterMelon
 					listCircle.get(0).setImage(new Image(circleChoosen));
 					
-					//coffe
+					//monochrom
 					listCircle.get(1).setImage(new Image(circleNotChoosen));
 					
 					themeChoosenCode = 1;
@@ -75,7 +78,7 @@ public class ChooseThemeBox {
 					//waterMelon
 					listCircle.get(0).setImage(new Image(circleChoosen));
 					
-					//coffe
+					//monochrom
 					listCircle.get(1).setImage(new Image(circleNotChoosen));
 					
 					themeChoosenCode = 1;
@@ -88,26 +91,26 @@ public class ChooseThemeBox {
 			themeImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					//coffe
+					//monochrom
 					listCircle.get(1).setImage(new Image(circleChoosen));
 					
 					//waterMelon
 					listCircle.get(0).setImage(new Image(circleNotChoosen));
 					
-					themeChoosenCode = 0;
+					themeChoosenCode = 2;
 				}
 			});
 			
 			circleImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					//coffe
+					//monochrom
 					listCircle.get(1).setImage(new Image(circleChoosen));
 					
 					//waterMelon
 					listCircle.get(0).setImage(new Image(circleNotChoosen));
 					
-					themeChoosenCode = 0;
+					themeChoosenCode = 2;
 				}
 			});
 		}
