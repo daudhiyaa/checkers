@@ -70,7 +70,7 @@ public class ThemeChooserScene{
 		box.setPrefSize(THEMEWIDTH, THEMEHEIGHT);
 		Text chooseTheme = createText(18, "CHOOSE THEME");
 		
-		ChooseThemeBox CTB = new ChooseThemeBox();
+		ThemeChooserBox CTB = new ThemeChooserBox();
 		HBox boxCTB = CTB.getThemeBox();
 		
 		Button back = new Button("Back");

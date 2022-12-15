@@ -12,18 +12,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
-public class ChooseThemeBox {
+public class ThemeChooserBox {
 	private HBox themeBox = new HBox();
     
     private String circleNotChoosen = "/application/resources/grey_circle.png";
 	private String circleChoosen = "/application/resources/red_choosen.png";
 	private String waterMelonTheme = "/application/resources/watermelon_theme.png";
+	private String coralBrownTheme = "/application/resources/coralbrown_theme.png";
 	private boolean isCircleChoosen;
+	private boolean isWaterMelon = false;
 	
 	private ImageView themeImage;
 	private ImageView circleImage;
 	
-    public ChooseThemeBox() {
+    public ThemeChooserBox() {
     	createThemeBox();
     }
     
@@ -45,11 +47,13 @@ public class ChooseThemeBox {
 	private VBox createThemeChooser() {
 		VBox newBox = new VBox();
 		
-		themeImage = new ImageView(waterMelonTheme);
+		themeImage =(isWaterMelon ? 
+				new ImageView(waterMelonTheme) : new ImageView(waterMelonTheme));
 		themeImage.setStyle("-border-radius: 5;");
 		circleImage = new ImageView(circleNotChoosen);
 		listCircle.add(circleImage);
 		
+		isWaterMelon = true;
 		isCircleChoosen = false;
 		
 		newBox.getChildren().addAll(themeImage, circleImage);
