@@ -2,9 +2,7 @@ package application.game;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
 import application.CheckersApp;
-//import application.model.ButtonStyle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -24,8 +22,6 @@ public class MainMenu {
 	private Pane mainMenuPane;
 	private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
 	public final static String BACKGROUND_IMAGE = "/application/resources/deep_blue.png";
-	private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('application/resources/green_buttonRe.png');";
-	
 	public static final int WIDTH = 350;
     public static final int HEIGHT = 300;
 	

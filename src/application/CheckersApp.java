@@ -10,13 +10,9 @@ import application.game.ThemeChooserScene;
 import application.game.ModeComputer;
 import application.game.TimeAttackMode;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CheckersApp extends Application {

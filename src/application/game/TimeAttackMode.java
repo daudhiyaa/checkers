@@ -87,7 +87,7 @@ public class TimeAttackMode extends GameBase{
 					}else{
 						resScene.setTxt("DRAW!");
 					}
-					root.getChildren().add(getWinPanel());
+						getWinPanel();
 					}
 				}
 			}

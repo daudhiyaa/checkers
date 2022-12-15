@@ -1,14 +1,11 @@
 package application.game;
-
 import java.util.ArrayList;
-
 import application.model.MoveResult;
 import application.model.MoveType;
 import application.model.Piece;
 import application.model.PieceType;
 import application.model.Tile;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 public class GameBase {
@@ -191,7 +188,7 @@ public class GameBase {
     	return root;
     }
     
-    public GameSubScene getWinPanel() {
-    	return resScene;
+    public void getWinPanel() {
+    	root.getChildren().add(resScene);
     }
 }
