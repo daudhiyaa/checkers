@@ -23,10 +23,10 @@ import application.CheckersApp;
 public class GameSubScene extends SubScene{
 	private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
 	private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('application/resources/green_buttonRe.png');";
-	BackgroundImage bgImg = new BackgroundImage(new Image("application/resources/blue.png"),
-			BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
+	private BackgroundImage bgImg; 
 	private Label winText;
 	private Button backButton;
+	private VBox subRoot;
 	
 	public GameSubScene() {
 		super(new VBox(), 400,400);
@@ -40,8 +40,10 @@ public class GameSubScene extends SubScene{
 			winText.setFont(Font.font("Verdana", 26));
 		}
 		winText.setTextFill(Color.WHITE);
+		bgImg = new BackgroundImage(new Image("application/resources/blue.png"),
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
 		createBackButton();
-		VBox subRoot = (VBox) this.getRoot();
+		subRoot = (VBox) this.getRoot();
 		subRoot.setBackground(new Background(bgImg));
 		subRoot.setAlignment(Pos.CENTER);
 		subRoot.getChildren().add(winText);

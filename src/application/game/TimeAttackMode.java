@@ -12,16 +12,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class TimeAttackMode extends GameBase{
-	private Label timeLabel;
 	private final String timeStyle = "-fx-background-color: transparent; -fx-background-image: url('application/resources/green_buttonRe.png');";
 	private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
+	private Label timeLabel;
 	boolean flagStop = true;
-	int miliseconds=90;
-	int seconds;
-	int minutes=3;
+	private int miliseconds=90;
+	private int seconds;
+	private int minutes=3;
 	private DecimalFormat dFormat = new DecimalFormat("00");
-	String sMinutes;
-	String sSeconds;
+	private String sMinutes;
+	private String sSeconds;
 	private VBox box = turn.turnUI();
 	
 	@Override

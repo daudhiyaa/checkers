@@ -24,7 +24,6 @@ public class ThemeChooserBox {
 
 	private Image themeImage;
 	private ImageView waterMelonChooser, monochromeChooser, coralChooser;
-	// 1 = watermelon, 2 = monochrom, 3 = coral
 	public static int themeChoosenCode = 1;
 	
     public ThemeChooserBox() {
