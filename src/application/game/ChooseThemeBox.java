@@ -18,10 +18,15 @@ public class ChooseThemeBox {
     private String circleNotChoosen = "/application/resources/grey_circle.png";
 	private String circleChoosen = "/application/resources/red_choosen.png";
 	private String waterMelonTheme = "/application/resources/watermelon_theme.png";
-	private boolean isCircleChoosen;
+	private String coffeTheme;
 	
 	private ImageView themeImage;
 	private ImageView circleImage;
+	
+	// 1 = watermelon, 2 = coffe
+	public static int themeChoosenCode = 1;
+	
+	private boolean isWaterMelon = true;
 	
     public ChooseThemeBox() {
     	createThemeBox();
@@ -34,23 +39,79 @@ public class ChooseThemeBox {
 	List<ImageView> listCircle =  new ArrayList<ImageView>();
 	
 	private void createThemeBox() {
-		VBox theme1 = createThemeChooser();
-		VBox theme2 = createThemeChooser();
-		
+		VBox theme1 = createThemeChooser(waterMelonTheme);
+		VBox theme2 = createThemeChooser(waterMelonTheme);
+				
 		themeBox.setSpacing(20);
 		themeBox.setAlignment(Pos.CENTER);
 		themeBox.getChildren().addAll(theme1, theme2);
 	}
 	
-	private VBox createThemeChooser() {
+	private VBox createThemeChooser(String theme) {
 		VBox newBox = new VBox();
 		
-		themeImage = new ImageView(waterMelonTheme);
+		themeImage = new ImageView(theme);
 		themeImage.setStyle("-border-radius: 5;");
-		circleImage = new ImageView(circleNotChoosen);
+		if(isWaterMelon) {
+			circleImage = new ImageView(circleChoosen);
+			isWaterMelon = false;
+			
+			themeImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent arg0) {
+					//waterMelon
+					listCircle.get(0).setImage(new Image(circleChoosen));
+					
+					//coffe
+					listCircle.get(1).setImage(new Image(circleNotChoosen));
+					
+					themeChoosenCode = 1;
+				}
+			});
+			
+			circleImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent arg0) {
+					//waterMelon
+					listCircle.get(0).setImage(new Image(circleChoosen));
+					
+					//coffe
+					listCircle.get(1).setImage(new Image(circleNotChoosen));
+					
+					themeChoosenCode = 1;
+				}
+			});
+		}
+		else {
+			circleImage = new ImageView(circleNotChoosen);
+			
+			themeImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent arg0) {
+					//coffe
+					listCircle.get(1).setImage(new Image(circleChoosen));
+					
+					//waterMelon
+					listCircle.get(0).setImage(new Image(circleNotChoosen));
+					
+					themeChoosenCode = 0;
+				}
+			});
+			
+			circleImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent arg0) {
+					//coffe
+					listCircle.get(1).setImage(new Image(circleChoosen));
+					
+					//waterMelon
+					listCircle.get(0).setImage(new Image(circleNotChoosen));
+					
+					themeChoosenCode = 0;
+				}
+			});
+		}
 		listCircle.add(circleImage);
-		
-		isCircleChoosen = false;
 		
 		newBox.getChildren().addAll(themeImage, circleImage);
 		newBox.setAlignment(Pos.CENTER);
@@ -58,24 +119,6 @@ public class ChooseThemeBox {
 		return newBox;
 	}
 	
-//	listCircle.get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
-//		public void handle(MouseEvent event) {
-////			for (ImageView img : listCircle.values()) {
-////				img.setIsCircleChoosen(false);
-////			}
-////			circleImage.setIsCircleChoosen(true);
-//	//		choosenShip = shipToPick.getShip();
-//		}
-//	}
 	
 	
-	public boolean getCircleChoosen() {
-		return isCircleChoosen;
-	}
-	
-	public void setIsCircleChoosen(boolean isCircleChoosen) {
-		this.isCircleChoosen = isCircleChoosen;
-		String imageToSet = this.isCircleChoosen ? circleChoosen : circleNotChoosen;
-		circleImage.setImage(new Image(imageToSet));
-	}
 }
