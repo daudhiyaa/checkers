@@ -25,9 +25,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class ThemeChooserScene{
-	public static final int THEMEWIDTH = 700;
-    public static final int THEMEHEIGHT = 450;
-    private final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
+	public static final int THEMEWIDTH = 600;
+    public static final int THEMEHEIGHT = 500;
+    public static final String FONT_PATH = "src/application/resources/kenvector_future.ttf";
     
 	private Pane themePane = new Pane();
 	
@@ -68,7 +68,7 @@ public class ThemeChooserScene{
 	private void createContents() {
 		VBox box = new VBox();
 		box.setPrefSize(THEMEWIDTH, THEMEHEIGHT);
-		Text chooseTheme = createText(18, "CHOOSE THEME");
+		Text chooseTheme = createText(18, "CHOOSE YOUR THEME!");
 		
 		ThemeChooserBox CTB = new ThemeChooserBox();
 		HBox boxCTB = CTB.getThemeBox();
