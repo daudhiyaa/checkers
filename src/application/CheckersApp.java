@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -36,6 +37,9 @@ public class CheckersApp extends Application {
     	scene = new Scene(root);
         mainStage.setTitle("Checkers Game");
         mainStage.setScene(scene);
+        mainStage.setResizable(false);
+        mainStage.getIcons().add(
+				   new Image("application/resources/CheckersIcon.png"));
         mainStage.show();
     }
     

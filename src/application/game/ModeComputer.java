@@ -1,6 +1,7 @@
 package application.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import application.model.MoveResult;
 import application.model.MoveType;
@@ -65,13 +66,13 @@ public class ModeComputer extends GameBase{
     	int xNew = 0;
     	int yNew = 0;
     	
-    	System.out.println("Computer");
-    	
     	ArrayList<Integer> combi =new ArrayList<Integer>();
 		combi.add(1);
 		combi.add(-1);
 		combi.add(2);
 		combi.add(-2);
+		
+		Collections.shuffle(combi);
     	
     	for(Piece piece : redPiece) {
     		int temp = 0;

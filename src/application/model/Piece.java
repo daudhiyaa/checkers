@@ -35,7 +35,22 @@ public class Piece extends StackPane {
     	this.isKing = true;
     	
     	Ellipse kingMark = new Ellipse(TILE_SIZE * 0.15, TILE_SIZE * 0.15);
-        kingMark.setFill(Color.BLACK);
+
+        
+        if(ThemeChooserBox.themeChoosenCode == 1) {
+        	// watermelon
+        	kingMark.setFill(Color.BLACK);
+        }
+        else if(ThemeChooserBox.themeChoosenCode == 2) {
+        	// monochrom
+        	kingMark.setFill(type == PieceType.RED
+                    ? Color.valueOf("#ffffff") : Color.valueOf("#000000"));
+        }
+        else if(ThemeChooserBox.themeChoosenCode == 3) {
+        	// coral
+        	kingMark.setFill(type == PieceType.RED
+                    ? Color.valueOf("#ffffff") : Color.valueOf("#000000"));
+        }
 
         kingMark.setTranslateX((TILE_SIZE - TILE_SIZE * 0.3125 * 2) / 2);
         kingMark.setTranslateY((TILE_SIZE - TILE_SIZE * 0.26 * 2) / 2);
