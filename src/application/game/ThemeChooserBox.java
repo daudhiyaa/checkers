@@ -1,12 +1,13 @@
 package application.game;
 
 import javafx.scene.layout.VBox;
-
-import java.util.ArrayList;
-import java.util.List;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -19,11 +20,10 @@ public class ThemeChooserBox {
 	private String circleChoosen = "/application/resources/red_choosen.png";
 	private String waterMelonTheme = "/application/resources/watermelon_theme.png";
 	private String coralBrownTheme = "/application/resources/coralbrown_theme.png";
-	private boolean isCircleChoosen;
-	private boolean isWaterMelon = false;
 	
-	private ImageView themeImage;
-	private ImageView circleImage;
+	private boolean isWaterMelon = true;
+	private Image themeImage;
+	private ImageView waterMelonChooser, coralChooser;
 	
     public ThemeChooserBox() {
     	createThemeBox();
@@ -32,8 +32,6 @@ public class ThemeChooserBox {
 	public HBox getThemeBox() {
 		return themeBox;
 	}
-	
-	List<ImageView> listCircle =  new ArrayList<ImageView>();
 	
 	private void createThemeBox() {
 		VBox theme1 = createThemeChooser();
@@ -47,39 +45,38 @@ public class ThemeChooserBox {
 	private VBox createThemeChooser() {
 		VBox newBox = new VBox();
 		
-		themeImage =(isWaterMelon ? 
-				new ImageView(waterMelonTheme) : new ImageView(waterMelonTheme));
-		themeImage.setStyle("-border-radius: 5;");
-		circleImage = new ImageView(circleNotChoosen);
-		listCircle.add(circleImage);
+		themeImage = (isWaterMelon ? 
+				new Image(waterMelonTheme) : new Image(coralBrownTheme));
+		Rectangle clipImage = new Rectangle(
+				themeImage.getWidth(), themeImage.getHeight());
+		clipImage.setFill(new ImagePattern(themeImage));
+		clipImage.setArcWidth(20);
+		clipImage.setArcHeight(20);
 		
-		isWaterMelon = true;
-		isCircleChoosen = false;
+		if(isWaterMelon) {
+			waterMelonChooser = new ImageView(circleChoosen);
+			waterMelonChooser.setOnMouseClicked(e -> handleClickWaterMelon());
+			newBox.getChildren().addAll(clipImage, waterMelonChooser);
+		}
+		else {
+			coralChooser = new ImageView(circleNotChoosen);
+			coralChooser.setOnMouseClicked(e -> handleClickCoral());
+			newBox.getChildren().addAll(clipImage, coralChooser);
+		}
 		
-		newBox.getChildren().addAll(themeImage, circleImage);
 		newBox.setAlignment(Pos.CENTER);
 		newBox.setSpacing(17);
+		isWaterMelon = false;
 		return newBox;
 	}
-	
-//	listCircle.get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
-//		public void handle(MouseEvent event) {
-////			for (ImageView img : listCircle.values()) {
-////				img.setIsCircleChoosen(false);
-////			}
-////			circleImage.setIsCircleChoosen(true);
-//	//		choosenShip = shipToPick.getShip();
-//		}
-//	}
-	
-	
-	public boolean getCircleChoosen() {
-		return isCircleChoosen;
+		
+	public void handleClickWaterMelon() {
+		waterMelonChooser.setImage(new Image(circleChoosen));
+		coralChooser.setImage(new Image(circleNotChoosen));
 	}
-	
-	public void setIsCircleChoosen(boolean isCircleChoosen) {
-		this.isCircleChoosen = isCircleChoosen;
-		String imageToSet = this.isCircleChoosen ? circleChoosen : circleNotChoosen;
-		circleImage.setImage(new Image(imageToSet));
+
+	public void handleClickCoral() {
+		waterMelonChooser.setImage(new Image(circleNotChoosen));
+		coralChooser.setImage(new Image(circleChoosen));
 	}
 }

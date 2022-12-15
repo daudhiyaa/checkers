@@ -117,7 +117,7 @@ public class ThemeChooserScene{
 		modeBox.setAlignment(Pos.CENTER);
 		modeBox.setSpacing(15);
 		
-		VBox.setMargin(boxCTB, new Insets(0,0,30,0));
+		VBox.setMargin(boxCTB, new Insets(0,0,20,0));
 		VBox.setMargin(modeBox, new Insets(0,0,30,0));
 		
 		box.getChildren().addAll(chooseTheme, boxCTB, chooseMode, modeBox, back);
