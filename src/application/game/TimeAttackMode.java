@@ -18,7 +18,7 @@ public class TimeAttackMode extends GameBase{
 	boolean flagStop = true;
 	private int miliseconds=90;
 	private int seconds;
-	private int minutes=1;
+	private int minutes=2;
 	private DecimalFormat dFormat = new DecimalFormat("00");
 	private String sMinutes;
 	private String sSeconds;
